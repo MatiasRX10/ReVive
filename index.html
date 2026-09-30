@@ -34,7 +34,6 @@
 </head>
 <body class="text-neutral-800 flex justify-center min-h-screen">
 
-  <!-- Mobile Container Frame -->
   <div class="w-full max-w-md bg-white min-h-screen flex flex-col shadow-2xl relative border-x border-neutral-150 pb-24 mx-auto">
     
     <!-- Top Bar -->
@@ -698,40 +697,58 @@
 
       try {
         const base64Data = await compressImage(file);
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${encodeURIComponent(state.apiKey.trim())}`;
         
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [{
-              parts: [
-                { text: 'Eres un nutricionista experto. Analiza la imagen y estima los nutrientes del plato. Responde ÚNICAMENTE un objeto JSON válido sin texto adicional ni formato markdown con esta estructura exacta: {"name": "Nombre descriptivo corto", "kcal": 450, "protein": 30, "carbs": 40, "fat": 15}' },
-                { inline_data: { mime_type: 'image/jpeg', data: base64Data } }
-              ]
-            }]
-          })
-        });
+        // Modelos con reintento automático si uno experimenta congestión (high demand)
+        const models = ['gemini-3.8-flash', 'gemini-3-flash-preview'];
+        let success = false;
+        let lastError = null;
 
-        const data = await response.json();
-        
-        if (data.error) {
-          throw new Error(data.error.message || 'Error en la respuesta de la API');
+        for (const model of models) {
+          try {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(state.apiKey.trim())}`;
+            const response = await fetch(url, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                contents: [{
+                  parts: [
+                    { text: 'Eres un nutricionista experto. Analiza la imagen y estima los nutrientes del plato. Responde ÚNICAMENTE un objeto JSON válido sin texto adicional ni formato markdown con esta estructura exacta: {"name": "Nombre descriptivo corto", "kcal": 450, "protein": 30, "carbs": 40, "fat": 15}' },
+                    { inline_data: { mime_type: 'image/jpeg', data: base64Data } }
+                  ]
+                }]
+              })
+            });
+
+            const data = await response.json();
+            if (data.error) {
+              lastError = new Error(data.error.message || 'Error en respuesta');
+              continue;
+            }
+
+            const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+            const cleanJson = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
+            const mealData = JSON.parse(cleanJson);
+
+            state.meals.unshift({
+              name: mealData.name || 'Comida escaneada',
+              kcal: parseInt(mealData.kcal) || 0,
+              p: parseInt(mealData.protein) || 0,
+              c: parseInt(mealData.carbs) || 0,
+              g: parseInt(mealData.fat) || 0
+            });
+
+            saveState();
+            success = true;
+            break;
+          } catch (e) {
+            lastError = e;
+          }
         }
 
-        const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-        const cleanJson = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
-        const mealData = JSON.parse(cleanJson);
+        if (!success) {
+          throw lastError || new Error('No se pudo procesar la imagen en este momento. Intenta de nuevo.');
+        }
 
-        state.meals.unshift({
-          name: mealData.name || 'Comida escaneada',
-          kcal: parseInt(mealData.kcal) || 0,
-          p: parseInt(mealData.protein) || 0,
-          c: parseInt(mealData.carbs) || 0,
-          g: parseInt(mealData.fat) || 0
-        });
-
-        saveState();
       } catch (err) {
         alert('Detalle del error: ' + (err.message || 'Error al analizar foto.'));
         console.error(err);
