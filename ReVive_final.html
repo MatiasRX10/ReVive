@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ReVive - Salud & Déficit</title>
+    <!-- Favicon & Apple Touch Icon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA1MTIgNTEyJz4KICA8cmVjdCB3aWR0aD0nNTEyJyBoZWlnaHQ9JzUxMicgcng9JzEyOCcgZmlsbD0nIzE3MTcxNycvPgogIDxwYXRoIGQ9J00xNjAgMTQwIEgyODAgQzMzNSAxNDAgMzcwIDE3MCAzNzAgMjIwIEMzNzAgMjY1IDMzOCAyOTIgMjkwIDI5OCBMMzc1IDM3MiBIMzE1IEwyNDAgMzA2IEgyMjAgVjM3MiBIMTYwIFYxNDAgWiBNMjIwIDE5MCBWMjU2IEgyNzIgQzMwMiAyNTYgMzE4IDI0NCAzMTggMjIzIEMzMTggMjAyIDMwMiAxOTAgMjcyIDE5MCBIMjIwIFonIGZpbGw9JyNmZmZmZmYnLz4KICA8Y2lyY2xlIGN4PSczNzUnIGN5PScxNTAnIHI9JzI0JyBmaWxsPScjMTBiOTgxJy8+Cjwvc3ZnPg==">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA1MTIgNTEyJz4KICA8cmVjdCB3aWR0aD0nNTEyJyBoZWlnaHQ9JzUxMicgcng9JzEyOCcgZmlsbD0nIzE3MTcxNycvPgogIDxwYXRoIGQ9J00xNjAgMTQwIEgyODAgQzMzNSAxNDAgMzcwIDE3MCAzNzAgMjIwIEMzNzAgMjY1IDMzOCAyOTIgMjkwIDI5OCBMMzc1IDM3MiBIMzE1IEwyNDAgMzA2IEgyMjAgVjM3MiBIMTYwIFYxNDAgWiBNMjIwIDE5MCBWMjU2IEgyNzIgQzMwMiAyNTYgMzE4IDI0NCAzMTggMjIzIEMzMTggMjAyIDMwMiAxOTAgMjcyIDE5MCBIMjIwIFonIGZpbGw9JyNmZmZmZmYnLz4KICA8Y2lyY2xlIGN4PSczNzUnIGN5PScxNTAnIHI9JzI0JyBmaWxsPScjMTBiOTgxJy8+Cjwvc3ZnPg==">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="ReVive">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      background-color: #f8fafc;
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="text-neutral-800 flex justify-center min-h-screen">
+
+  <!-- Mobile Container Frame -->
+  <div class="w-full max-w-md bg-white min-h-screen flex flex-col shadow-2xl relative border-x border-neutral-100 pb-24">
+    
+    <!-- Top Bar -->
+    <header class="sticky top-0 bg-white/90 backdrop-blur-md z-30 px-6 py-4 border-b border-neutral-100 flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <div class="w-8 h-8 rounded-full bg-neutral-900 flex items-center justify-center text-white font-black text-sm tracking-wider">
+          R
+        </div>
+        <span class="text-xl font-bold tracking-tight text-neutral-900">ReVive</span>
+      </div>
+      <button onclick="switchTab('ajustes')" class="w-9 h-9 rounded-full bg-neutral-50 flex items-center justify-center border border-neutral-200 text-neutral-600 hover:bg-neutral-100 transition">
+        <i data-lucide="settings" class="w-4 h-4"></i>
+      </button>
+    </header>
+
+    <!-- CONTENT AREA -->
+    <main class="flex-1 px-5 py-4 overflow-y-auto hide-scrollbar">
+
+      <!-- ================= PESTAÑA 1: HOY ================= -->
+      <section id="tab-hoy" class="space-y-6">
+        
+        <!-- Tarjeta de Progreso Calórico -->
+        <div class="bg-white rounded-3xl p-6 border border-neutral-150 shadow-sm relative overflow-hidden">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Déficit Diario</span>
+              <h2 class="text-2xl font-black text-neutral-900" id="dash-remaining">-- kcal</h2>
+              <p class="text-xs text-neutral-500 font-medium">calorías restantes</p>
+            </div>
+            <div class="text-right">
+              <span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Meta</span>
+              <p class="text-lg font-bold text-neutral-800" id="dash-target">-- kcal</p>
+            </div>
+          </div>
+
+          <!-- Barra de Progreso -->
+          <div class="w-full bg-neutral-100 h-3 rounded-full overflow-hidden p-0.5 border border-neutral-200/50">
+            <div id="progress-bar" class="h-full bg-neutral-900 rounded-full transition-all duration-500" style="width: 0%"></div>
+          </div>
+          
+          <div class="flex justify-between items-center text-xs font-medium text-neutral-500 mt-2">
+            <span>Consumidas: <b id="dash-consumed" class="text-neutral-800">0</b> kcal</span>
+            <span id="dash-percent" class="font-bold text-neutral-800">0%</span>
+          </div>
+
+          <!-- Macros -->
+          <div class="grid grid-cols-3 gap-2 mt-5 pt-4 border-t border-neutral-100 text-center">
+            <div class="p-2.5 rounded-2xl bg-neutral-50 border border-neutral-100">
+              <span class="text-[10px] uppercase font-bold text-neutral-400">Proteína</span>
+              <p class="text-sm font-bold text-neutral-900 mt-0.5"><span id="macro-p">0</span>g</p>
+            </div>
+            <div class="p-2.5 rounded-2xl bg-neutral-50 border border-neutral-100">
+              <span class="text-[10px] uppercase font-bold text-neutral-400">Carbos</span>
+              <p class="text-sm font-bold text-neutral-900 mt-0.5"><span id="macro-c">0</span>g</p>
+            </div>
+            <div class="p-2.5 rounded-2xl bg-neutral-50 border border-neutral-100">
+              <span class="text-[10px] uppercase font-bold text-neutral-400">Grasas</span>
+              <p class="text-sm font-bold text-neutral-900 mt-0.5"><span id="macro-g">0</span>g</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Módulo de Hidratación -->
+        <div class="bg-white rounded-3xl p-5 border border-neutral-150 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center space-x-2">
+              <div class="w-8 h-8 rounded-full bg-sky-50 text-sky-500 flex items-center justify-center">
+                <i data-lucide="droplet" class="w-4 h-4 fill-sky-500"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-sm text-neutral-900">Agua Diaria</h3>
+                <p class="text-xs text-neutral-400">Meta recomendada: <span id="water-target">2500</span> ml</p>
+              </div>
+            </div>
+            <span class="text-base font-black text-sky-600"><span id="water-consumed">0</span> <span class="text-xs font-bold text-neutral-400">ml</span></span>
+          </div>
+
+          <!-- Barra de Agua -->
+          <div class="w-full bg-sky-50 h-2.5 rounded-full overflow-hidden mb-3 border border-sky-100">
+            <div id="water-bar" class="h-full bg-sky-500 rounded-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+
+          <!-- Botones rápidos de agua -->
+          <div class="flex space-x-2">
+            <button onclick="addWater(250)" class="flex-1 py-2 px-3 rounded-xl bg-neutral-50 border border-neutral-200 text-xs font-semibold text-neutral-700 hover:bg-sky-50 hover:text-sky-600 hover:border-sky-200 transition flex items-center justify-center space-x-1">
+              <span>+1 Vaso</span>
+              <span class="text-[10px] text-neutral-400">(250ml)</span>
+            </button>
+            <button onclick="addWater(500)" class="flex-1 py-2 px-3 rounded-xl bg-neutral-50 border border-neutral-200 text-xs font-semibold text-neutral-700 hover:bg-sky-50 hover:text-sky-600 hover:border-sky-200 transition flex items-center justify-center space-x-1">
+              <span>+Botella</span>
+              <span class="text-[10px] text-neutral-400">(500ml)</span>
+            </button>
+            <button onclick="resetWater()" class="px-3 py-2 rounded-xl bg-neutral-50 border border-neutral-200 text-xs font-semibold text-neutral-400 hover:text-neutral-700">
+              <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+        
+        <!-- Módulo de Entreno Real (Apple Health / Huawei / Rouvy) -->
+        <div class="bg-white rounded-3xl p-5 border border-neutral-150 shadow-sm space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <div class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                <i data-lucide="flame" class="w-4 h-4 fill-emerald-500"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-sm text-neutral-900">Entrenamiento de Hoy</h3>
+                <p class="text-xs text-neutral-400">Desde Apple Salud / Rouvy / Huawei</p>
+              </div>
+            </div>
+            <span class="text-sm font-black text-emerald-600">+<span id="workout-burned-kcal">0</span> kcal</span>
+          </div>
+
+          <div id="workout-active-summary" class="hidden p-3 rounded-2xl bg-neutral-50 border border-neutral-100 flex items-center justify-between text-xs">
+            <div>
+              <p class="font-bold text-neutral-900" id="workout-summary-name">Rouvy / Ciclismo</p>
+              <p class="text-[10px] text-neutral-400" id="workout-summary-details">450 kcal quemadas</p>
+            </div>
+            <button onclick="clearTodayWorkout()" class="text-neutral-400 hover:text-red-500 p-1">
+              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <button onclick="addVolleyballQuick()" class="py-2.5 px-3 rounded-xl bg-indigo-50 border border-indigo-150 text-indigo-700 text-xs font-bold hover:bg-indigo-100 transition flex items-center justify-center space-x-1.5 shadow-sm">
+              <span>🏐 Vóley (+400 kcal)</span>
+            </button>
+            <button onclick="openWorkoutModal('Rouvy / Bici')" class="py-2.5 px-3 rounded-xl bg-neutral-50 border border-neutral-200 text-neutral-800 text-xs font-bold hover:bg-neutral-100 transition flex items-center justify-center space-x-1.5 shadow-sm">
+              <i data-lucide="bike" class="w-3.5 h-3.5 text-emerald-600"></i>
+              <span>Rouvy / Bici</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Acciones de Registro -->
+        <div class="grid grid-cols-2 gap-3">
+          <label class="cursor-pointer bg-neutral-900 text-white rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-sm hover:bg-neutral-800 transition">
+            <input type="file" id="camera-input" accept="image/*" class="hidden" onchange="handleImage(this)">
+            <i data-lucide="camera" class="w-6 h-6 mb-1 text-white"></i>
+            <span class="font-bold text-xs">Foto de Comida</span>
+            <span class="text-[10px] text-neutral-400">Escaneo con IA</span>
+          </label>
+          <button onclick="openManualModal()" class="bg-white text-neutral-900 border border-neutral-200 rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-sm hover:bg-neutral-50 transition">
+            <i data-lucide="plus-circle" class="w-6 h-6 mb-1 text-neutral-700"></i>
+            <span class="font-bold text-xs">Registro Manual</span>
+            <span class="text-[10px] text-neutral-400">Gramos o kcal</span>
+          </button>
+        </div>
+
+        <!-- Lista de Comidas del Día -->
+        <div>
+          <div class="flex justify-between items-center mb-3">
+            <h3 class="font-bold text-sm text-neutral-900">Comidas Registradas</h3>
+            <span class="text-xs text-neutral-400" id="meals-count">0 items</span>
+          </div>
+          <div id="meals-list" class="space-y-2">
+            <!-- Items dinámicos -->
+            <div class="text-center py-8 text-neutral-400 text-xs border border-dashed border-neutral-200 rounded-2xl">
+              No has registrado comidas hoy.<br>Toma una foto o ingresa una manualmente.
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ================= PESTAÑA 2: PLANIFICADOR & DÉFICIT ================= -->
+      <section id="tab-plan" class="hidden space-y-5">
+        <div>
+          <h2 class="text-lg font-black text-neutral-900">Planificador & Déficit</h2>
+          <p class="text-xs text-neutral-500">Calcula tu gasto con Mifflin-St Jeor y tus sesiones de deporte.</p>
+        </div>
+
+        <!-- Datos corporales -->
+        <div class="bg-white rounded-3xl p-5 border border-neutral-150 shadow-sm space-y-4">
+          <h3 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">1. Tus Medidas</h3>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="text-[11px] font-bold text-neutral-500 block mb-1">Peso (kg)</label>
+              <input type="number" id="input-weight" value="75" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-sm font-semibold focus:outline-none focus:border-neutral-900">
+            </div>
+            <div>
+              <label class="text-[11px] font-bold text-neutral-500 block mb-1">Estatura (cm)</label>
+              <input type="number" id="input-height" value="175" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-sm font-semibold focus:outline-none focus:border-neutral-900">
+            </div>
+            <div>
+              <label class="text-[11px] font-bold text-neutral-500 block mb-1">Edad (años)</label>
+              <input type="number" id="input-age" value="27" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-sm font-semibold focus:outline-none focus:border-neutral-900">
+            </div>
+            <div>
+              <label class="text-[11px] font-bold text-neutral-500 block mb-1">Sexo</label>
+              <select id="input-gender" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-sm font-semibold focus:outline-none focus:border-neutral-900">
+                <option value="male" selected>Hombre</option>
+                <option value="female">Mujer</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Programación deportiva semanal -->
+        <div class="bg-white rounded-3xl p-5 border border-neutral-150 shadow-sm space-y-4">
+          <h3 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">2. Entrenamiento Semanal</h3>
+          <p class="text-xs text-neutral-500 -mt-2">Calculado mediante METs reales según tu peso.</p>
+
+          <!-- Bici -->
+          <div class="p-3 rounded-2xl bg-neutral-50 border border-neutral-150 space-y-2">
+            <div class="flex items-center space-x-2 text-neutral-900 font-bold text-xs">
+              <i data-lucide="bike" class="w-4 h-4 text-emerald-600"></i>
+              <span>Ciclismo (Ruta / Spinning)</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div>
+                <span class="text-[10px] text-neutral-400 block">Días / sem</span>
+                <input type="number" id="bike-days" value="2" min="0" max="7" class="w-full bg-white border border-neutral-200 rounded-lg px-2 py-1 font-bold mt-1 text-center">
+              </div>
+              <div>
+                <span class="text-[10px] text-neutral-400 block">Horas x sesión</span>
+                <input type="number" step="0.5" id="bike-hours" value="1.0" min="0" class="w-full bg-white border border-neutral-200 rounded-lg px-2 py-1 font-bold mt-1 text-center">
+              </div>
+            </div>
+          </div>
+
+          <!-- Vóley -->
+          <div class="p-3 rounded-2xl bg-neutral-50 border border-neutral-150 space-y-2">
+            <div class="flex items-center space-x-2 text-neutral-900 font-bold text-xs">
+              <i data-lucide="activity" class="w-4 h-4 text-indigo-600"></i>
+              <span>Vóleibol (Entreno / Partido)</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div>
+                <span class="text-[10px] text-neutral-400 block">Días / sem</span>
+                <input type="number" id="volley-days" value="2" min="0" max="7" class="w-full bg-white border border-neutral-200 rounded-lg px-2 py-1 font-bold mt-1 text-center">
+              </div>
+              <div>
+                <span class="text-[10px] text-neutral-400 block">Horas x sesión</span>
+                <input type="number" step="0.5" id="volley-hours" value="1.5" min="0" class="w-full bg-white border border-neutral-200 rounded-lg px-2 py-1 font-bold mt-1 text-center">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ritmo de Déficit -->
+        <div class="bg-white rounded-3xl p-5 border border-neutral-150 shadow-sm space-y-3">
+          <h3 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">3. Nivel de Déficit</h3>
+          <div class="grid grid-cols-2 gap-2">
+            <label class="cursor-pointer">
+              <input type="radio" name="deficit-level" value="400" checked class="peer hidden">
+              <div class="p-3 rounded-2xl border border-neutral-200 peer-checked:border-neutral-900 peer-checked:bg-neutral-900 peer-checked:text-white transition text-center">
+                <p class="font-bold text-xs">Moderado</p>
+                <p class="text-[10px] opacity-75">-400 kcal/día</p>
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="deficit-level" value="600" class="peer hidden">
+              <div class="p-3 rounded-2xl border border-neutral-200 peer-checked:border-neutral-900 peer-checked:bg-neutral-900 peer-checked:text-white transition text-center">
+                <p class="font-bold text-xs">Agresivo</p>
+                <p class="text-[10px] opacity-75">-600 kcal/día</p>
+              </div>
+            </label>
+          </div>
+
+          <button onclick="calculatePlan()" class="w-full mt-2 py-3 bg-neutral-900 text-white rounded-2xl font-bold text-xs tracking-wide hover:bg-neutral-800 transition">
+            Calcular Mi Meta Exacta
+          </button>
+        </div>
+
+        <!-- Resultado Calculado -->
+        <div id="calc-result-box" class="hidden bg-neutral-900 text-white rounded-3xl p-6 shadow-xl space-y-3">
+          <span class="text-[10px] uppercase font-bold text-neutral-400 tracking-wider">Tu Prescripción Nutricional</span>
+          <div class="flex items-baseline justify-between border-b border-neutral-800 pb-3">
+            <div>
+              <p class="text-3xl font-black" id="res-target-kcal">0</p>
+              <p class="text-xs text-neutral-400">kcal máximas al día</p>
+            </div>
+            <div class="text-right text-xs text-neutral-300">
+              <p>Mantenimiento: <span id="res-maint-kcal" class="font-bold text-white">0</span></p>
+              <p class="text-emerald-400 font-semibold" id="res-deficit-val">-400 kcal déficit</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 text-xs pt-1">
+            <div class="bg-neutral-800/60 p-2.5 rounded-xl border border-neutral-700/50">
+              <span class="text-neutral-400 block text-[10px]">Proteína recomendada</span>
+              <span class="text-sm font-bold text-white" id="res-protein">150g</span>
+            </div>
+            <div class="bg-neutral-800/60 p-2.5 rounded-xl border border-neutral-700/50">
+              <span class="text-neutral-400 block text-[10px]">Meta de agua</span>
+              <span class="text-sm font-bold text-white" id="res-water">2800 ml</span>
+            </div>
+          </div>
+
+          <button onclick="applyCalculatedPlan()" class="w-full py-3 bg-white text-neutral-900 rounded-xl font-bold text-xs mt-2 hover:bg-neutral-100 transition shadow">
+            Guardar como Mi Meta Activa
+          </button>
+        </div>
+      </section>
+
+      <!-- ================= PESTAÑA 3: AJUSTES ================= -->
+      <section id="tab-ajustes" class="hidden space-y-4">
+        <div>
+          <h2 class="text-lg font-black text-neutral-900">Ajustes & Configuración</h2>
+          <p class="text-xs text-neutral-500">Configura la API de Inteligencia Artificial para las fotos.</p>
+        </div>
+
+        <div class="bg-white rounded-3xl p-5 border border-neutral-150 shadow-sm space-y-3">
+          <h3 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Gemini API Key</h3>
+          <p class="text-xs text-neutral-500">
+            Necesaria para procesar las fotos con visión artificial gratuita de Google.
+          </p>
+          <input type="password" id="api-key-input" placeholder="Pega tu clave AI Studio aquí..." class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-neutral-900">
+          
+          <button onclick="saveApiKey()" class="w-full py-2.5 bg-neutral-900 text-white rounded-xl font-bold text-xs hover:bg-neutral-800 transition">
+            Guardar Clave
+          </button>
+
+          <p class="text-[11px] text-neutral-400 text-center">
+            Consíguela gratis en <a href="https://aistudio.google.com/" target="_blank" class="text-neutral-900 underline font-semibold">aistudio.google.com</a>
+          </p>
+        </div>
+
+        <div class="bg-white rounded-3xl p-5 border border-neutral-150 shadow-sm space-y-3">
+          <h3 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Datos de la App</h3>
+          <button onclick="resetDayData()" class="w-full py-2.5 border border-red-200 text-red-600 rounded-xl font-bold text-xs hover:bg-red-50 transition">
+            Reiniciar Comidas de Hoy
+          </button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Barra de Navegación Inferior -->
+    <nav class="fixed bottom-0 max-w-md w-full bg-white/95 backdrop-blur-md border-t border-neutral-150 py-2 px-6 flex justify-around items-center z-40">
+      <button onclick="switchTab('hoy')" id="nav-hoy" class="flex flex-col items-center text-neutral-900 transition font-bold text-[11px]">
+        <i data-lucide="circle-dot" class="w-5 h-5 mb-0.5"></i>
+        <span>Hoy</span>
+      </button>
+      <button onclick="switchTab('plan')" id="nav-plan" class="flex flex-col items-center text-neutral-400 hover:text-neutral-700 transition font-medium text-[11px]">
+        <i data-lucide="calendar" class="w-5 h-5 mb-0.5"></i>
+        <span>Plan</span>
+      </button>
+      <button onclick="switchTab('ajustes')" id="nav-ajustes" class="flex flex-col items-center text-neutral-400 hover:text-neutral-700 transition font-medium text-[11px]">
+        <i data-lucide="sliders" class="w-5 h-5 mb-0.5"></i>
+        <span>Ajustes</span>
+      </button>
+    </nav>
+
+  </div>
+
+  
+  <!-- MODAL: REGISTRO DE ENTRENO -->
+  <div id="modal-workout" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-white rounded-t-3xl sm:rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
+      <div class="flex justify-between items-center">
+        <h3 class="font-bold text-neutral-900 text-base">Registrar Sesión Real</h3>
+        <button onclick="closeWorkoutModal()" class="text-neutral-400 hover:text-neutral-800"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <p class="text-xs text-neutral-500 -mt-2">Mira las calorías activas que marcó tu Huawei / Apple Watch o Rouvy y anótalas aquí:</p>
+      
+      <div class="space-y-3">
+        <div>
+          <label class="text-[11px] font-bold text-neutral-500 block mb-1">Actividad</label>
+          <select id="workout-type" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-neutral-900">
+            <option value="Rouvy / Bici Indoor">Rouvy / Bici Indoor</option>
+            <option value="Ciclismo Ruta">Ciclismo Ruta</option>
+            <option value="Vóleibol">Vóleibol (Entreno o Partido)</option>
+            <option value="Otro Entrenamiento">Otro Entrenamiento</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-[11px] font-bold text-neutral-500 block mb-1">Calorías Activas Quemadas (kcal)</label>
+          <input type="number" id="workout-kcal" placeholder="Ej. 520" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-neutral-900">
+        </div>
+      </div>
+      <button onclick="saveTodayWorkout()" class="w-full py-3 bg-neutral-900 text-white rounded-xl font-bold text-xs">Guardar Sesión</button>
+    </div>
+  </div>
+
+  <!-- MODAL: REGISTRO MANUAL -->
+  <div id="modal-manual" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-white rounded-t-3xl sm:rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
+      <div class="flex justify-between items-center">
+        <h3 class="font-bold text-neutral-900 text-base">Registrar Alimento</h3>
+        <button onclick="closeManualModal()" class="text-neutral-400 hover:text-neutral-800"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <div class="space-y-3">
+        <input type="text" id="manual-name" placeholder="Ej. Pechuga de pollo con arroz" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-xs font-semibold">
+        <div class="grid grid-cols-2 gap-2">
+          <input type="number" id="manual-kcal" placeholder="Calorías (kcal)" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-xs font-semibold">
+          <input type="number" id="manual-protein" placeholder="Proteína (g)" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-xs font-semibold">
+        </div>
+      </div>
+      <button onclick="addManualMeal()" class="w-full py-3 bg-neutral-900 text-white rounded-xl font-bold text-xs">Guardar Alimento</button>
+    </div>
+  </div>
+
+  <!-- LOADING OVERLAY -->
+  <div id="loading-overlay" class="fixed inset-0 bg-white/90 backdrop-blur-sm z-50 hidden flex flex-col items-center justify-center">
+    <div class="w-10 h-10 border-4 border-neutral-200 border-t-neutral-900 rounded-full animate-spin mb-3"></div>
+    <p class="font-bold text-neutral-900 text-sm">Analizando foto con IA...</p>
+    <p class="text-xs text-neutral-400">Estimando porciones y calorías</p>
+  </div>
+
+  <!-- Script Lógica ReVive -->
+  <script>
+    // Inicializar íconos
+    lucide.createIcons();
+
+    // Estado inicial
+    let state = {
+      targetKcal: 2000,
+      targetWater: 2500,
+      consumedWater: 0,
+      todayWorkout: null, // { type: 'Rouvy', kcal: 500 }
+      meals: [],
+      apiKey: localStorage.getItem('revive_gemini_key') || ''
+    };
+
+    // Cargar LocalStorage
+    function loadState() {
+      const saved = localStorage.getItem('revive_state');
+      if (saved) {
+        state = Object.assign(state, JSON.parse(saved));
+      }
+      document.getElementById('api-key-input').value = state.apiKey;
+      updateUI();
+    }
+
+    function saveState() {
+      localStorage.setItem('revive_state', JSON.stringify(state));
+      updateUI();
+    }
+
+    // Actualizar UI
+    function updateUI() {
+      const consumedKcal = state.meals.reduce((sum, m) => sum + (m.kcal || 0), 0);
+      const consumedP = state.meals.reduce((sum, m) => sum + (m.p || 0), 0);
+      const consumedC = state.meals.reduce((sum, m) => sum + (m.c || 0), 0);
+      const consumedG = state.meals.reduce((sum, m) => sum + (m.g || 0), 0);
+
+      const workoutKcal = (state.todayWorkout && state.todayWorkout.kcal) ? state.todayWorkout.kcal : 0;
+      // La meta efectiva de consumo para mantener el déficit elegido cuando entrenas:
+      const effectiveTarget = state.targetKcal + workoutKcal;
+      const remaining = Math.max(0, effectiveTarget - consumedKcal);
+      const percent = effectiveTarget > 0 ? Math.min(100, Math.round((consumedKcal / effectiveTarget) * 100)) : 0;
+
+      // Workout UI display
+      const burnedEl = document.getElementById('workout-burned-kcal');
+      const summaryBox = document.getElementById('workout-active-summary');
+      if (burnedEl) burnedEl.textContent = workoutKcal;
+      if (summaryBox) {
+        if (state.todayWorkout && state.todayWorkout.kcal > 0) {
+          summaryBox.classList.remove('hidden');
+          document.getElementById('workout-summary-name').textContent = state.todayWorkout.type;
+          document.getElementById('workout-summary-details').textContent = state.todayWorkout.kcal + ' kcal quemadas';
+        } else {
+          summaryBox.classList.add('hidden');
+        }
+      }
+
+      if (workoutKcal > 0) {
+        document.getElementById('dash-target').textContent = state.targetKcal + ' (+' + workoutKcal + ') kcal';
+      } else {
+        document.getElementById('dash-target').textContent = state.targetKcal + ' kcal';
+      }
+      document.getElementById('dash-remaining').textContent = remaining + ' kcal';
+      document.getElementById('dash-consumed').textContent = consumedKcal;
+      document.getElementById('dash-percent').textContent = percent + '%';
+      document.getElementById('progress-bar').style.width = percent + '%';
+
+      document.getElementById('macro-p').textContent = consumedP;
+      document.getElementById('macro-c').textContent = consumedC;
+      document.getElementById('macro-g').textContent = consumedG;
+
+      // Agua
+      document.getElementById('water-target').textContent = state.targetWater;
+      document.getElementById('water-consumed').textContent = state.consumedWater;
+      const waterPercent = Math.min(100, Math.round((state.consumedWater / state.targetWater) * 100));
+      document.getElementById('water-bar').style.width = waterPercent + '%';
+
+      // Lista de comidas
+      renderMealsList();
+    }
+
+    function renderMealsList() {
+      const container = document.getElementById('meals-list');
+      document.getElementById('meals-count').textContent = state.meals.length + ' items';
+
+      if (state.meals.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-8 text-neutral-400 text-xs border border-dashed border-neutral-200 rounded-2xl">
+            No has registrado comidas hoy.<br>Toma una foto o ingresa una manualmente.
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = state.meals.map((m, index) => `
+        <div class="flex items-center justify-between p-3.5 bg-neutral-50 rounded-2xl border border-neutral-100">
+          <div>
+            <h4 class="font-bold text-xs text-neutral-900">${m.name}</h4>
+            <span class="text-[10px] text-neutral-400">Proteína: ${m.p || 0}g</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <span class="font-black text-xs text-neutral-900">${m.kcal} kcal</span>
+            <button onclick="deleteMeal(${index})" class="text-neutral-300 hover:text-red-500">
+              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    // Funciones de agua
+    function addWater(amount) {
+      state.consumedWater += amount;
+      saveState();
+    }
+    function resetWater() {
+      state.consumedWater = 0;
+      saveState();
+    }
+
+    
+    // Funciones Entreno Real
+    function addVolleyballQuick() {
+      state.todayWorkout = { type: 'Vóleibol (2 hrs)', kcal: 400 };
+      state.targetWater = Math.max(state.targetWater, 3000);
+      saveState();
+    }
+    function openWorkoutModal(defaultType) {
+      if (defaultType) {
+        document.getElementById('workout-type').value = 'Rouvy / Bici Indoor';
+      }
+      document.getElementById('modal-workout').classList.remove('hidden');
+    }
+    function closeWorkoutModal() {
+      document.getElementById('modal-workout').classList.add('hidden');
+    }
+    function saveTodayWorkout() {
+      const type = document.getElementById('workout-type').value;
+      const kcal = parseInt(document.getElementById('workout-kcal').value) || 0;
+      if (kcal > 0) {
+        state.todayWorkout = { type, kcal };
+        // Si entrena fuerte, sugerir 500ml extra de agua si no se ha sumado
+        state.targetWater = Math.max(state.targetWater, 3000);
+        saveState();
+        closeWorkoutModal();
+        document.getElementById('workout-kcal').value = '';
+      }
+    }
+    function clearTodayWorkout() {
+      state.todayWorkout = null;
+      saveState();
+    }
+
+    // Navegación
+    function switchTab(tabId) {
+      ['hoy', 'plan', 'ajustes'].forEach(t => {
+        document.getElementById('tab-' + t).classList.add('hidden');
+        document.getElementById('nav-' + t).classList.replace('text-neutral-900', 'text-neutral-400');
+      });
+      document.getElementById('tab-' + tabId).classList.remove('hidden');
+      document.getElementById('nav-' + tabId).classList.replace('text-neutral-400', 'text-neutral-900');
+    }
+
+    // Modal
+    function openManualModal() {
+      document.getElementById('modal-manual').classList.remove('hidden');
+    }
+    function closeManualModal() {
+      document.getElementById('modal-manual').classList.add('hidden');
+    }
+
+    function addManualMeal() {
+      const name = document.getElementById('manual-name').value || 'Alimento';
+      const kcal = parseInt(document.getElementById('manual-kcal').value) || 0;
+      const protein = parseInt(document.getElementById('manual-protein').value) || 0;
+
+      if (kcal > 0) {
+        state.meals.unshift({ name, kcal, p: protein, c: 0, g: 0 });
+        saveState();
+        closeManualModal();
+        document.getElementById('manual-name').value = '';
+        document.getElementById('manual-kcal').value = '';
+        document.getElementById('manual-protein').value = '';
+      }
+    }
+
+    function deleteMeal(index) {
+      state.meals.splice(index, 1);
+      saveState();
+    }
+
+    function resetDayData() {
+      if (confirm('¿Reiniciar las comidas y agua de hoy?')) {
+        state.meals = [];
+        state.consumedWater = 0;
+        state.todayWorkout = null;
+        saveState();
+      }
+    }
+
+    // Calculadora Deportiva & Déficit
+    let calculatedTarget = 2000;
+    let calculatedWater = 2500;
+
+    function calculatePlan() {
+      const weight = parseFloat(document.getElementById('input-weight').value);
+      const height = parseFloat(document.getElementById('input-height').value);
+      const age = parseFloat(document.getElementById('input-age').value);
+      const gender = document.getElementById('input-gender').value;
+
+      // BMR Mifflin-St Jeor
+      let bmr = (10 * weight) + (6.25 * height) - (5 * age);
+      bmr = (gender === 'male') ? bmr + 5 : bmr - 161;
+
+      // Base Sedentaria / Actividad diaria normal
+      const baseDailyExpense = bmr * 1.25;
+
+      // Deporte Semanal (METs)
+      const bikeDays = parseFloat(document.getElementById('bike-days').value) || 0;
+      const bikeHours = parseFloat(document.getElementById('bike-hours').value) || 0;
+      // Ciclismo ~7.5 METs -> kcal = 7.5 * weight * hours
+      const weeklyBikeKcal = bikeDays * (7.5 * weight * bikeHours);
+
+      const volleyDays = parseFloat(document.getElementById('volley-days').value) || 0;
+      const volleyHours = parseFloat(document.getElementById('volley-hours').value) || 0;
+      // Vóley ~5.5 METs -> kcal = 5.5 * weight * hours
+      const weeklyVolleyKcal = volleyDays * (5.5 * weight * volleyHours);
+
+      const dailySportKcal = (weeklyBikeKcal + weeklyVolleyKcal) / 7;
+      const totalMaintenance = Math.round(baseDailyExpense + dailySportKcal);
+
+      // Déficit
+      const deficitSelected = parseInt(document.querySelector('input[name="deficit-level"]:checked').value);
+      calculatedTarget = totalMaintenance - deficitSelected;
+
+      // Agua sugerida (35ml x kg + compensación por entreno)
+      calculatedWater = Math.round((weight * 35) + ((bikeDays * bikeHours + volleyDays * volleyHours) / 7 * 600));
+
+      // Proteína sugerida (2.0g x kg)
+      const suggestedProtein = Math.round(weight * 2.0);
+
+      document.getElementById('res-target-kcal').textContent = calculatedTarget;
+      document.getElementById('res-maint-kcal').textContent = totalMaintenance;
+      document.getElementById('res-deficit-val').textContent = '-' + deficitSelected + ' kcal déficit';
+      document.getElementById('res-protein').textContent = suggestedProtein + 'g';
+      document.getElementById('res-water').textContent = calculatedWater + ' ml';
+
+      document.getElementById('calc-result-box').classList.remove('hidden');
+    }
+
+    function applyCalculatedPlan() {
+      state.targetKcal = calculatedTarget;
+      state.targetWater = calculatedWater;
+      saveState();
+      switchTab('hoy');
+    }
+
+    // Configuración API
+    function saveApiKey() {
+      const key = document.getElementById('api-key-input').value.trim();
+      state.apiKey = key;
+      localStorage.setItem('revive_gemini_key', key);
+      alert('Clave guardada con éxito.');
+    }
+
+    // Escáner de Comida con Gemini Flash
+    async function handleImage(input) {
+      if (!input.files || !input.files[0]) return;
+      if (!state.apiKey) {
+        alert('Por favor ingresa tu API Key en la pestaña de Ajustes para analizar fotos.');
+        switchTab('ajustes');
+        return;
+      }
+
+      const file = input.files[0];
+      const reader = new FileReader();
+
+      document.getElementById('loading-overlay').classList.remove('hidden');
+
+      reader.onloadend = async function() {
+        const base64Data = reader.result.split(',')[1];
+        try {
+          const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${state.apiKey}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{
+                parts: [
+                  { text: 'Analiza la comida de la imagen. Responde ÚNICAMENTE en formato JSON con las claves: "name" (nombre descriptivo corto), "kcal" (calorías enteras), "protein" (gramos de proteína), "carbs" (gramos), "fat" (gramos).' },
+                  { inline_data: { mime_type: file.type || 'image/jpeg', data: base64Data } }
+                ]
+              }]
+            })
+          });
+
+          const data = await response.json();
+          const rawText = data.candidates[0].content.parts[0].text;
+          const cleanJson = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
+          const mealData = JSON.parse(cleanJson);
+
+          state.meals.unshift({
+            name: mealData.name || 'Comida escaneada',
+            kcal: parseInt(mealData.kcal) || 0,
+            p: parseInt(mealData.protein) || 0,
+            c: parseInt(mealData.carbs) || 0,
+            g: parseInt(mealData.fat) || 0
+          });
+
+          saveState();
+        } catch (err) {
+          alert('Hubo un error al analizar la imagen. Revisa tu clave o intenta con otra foto.');
+          console.error(err);
+        } finally {
+          document.getElementById('loading-overlay').classList.add('hidden');
+          input.value = '';
+        }
+      };
+
+      reader.readAsDataURL(file);
+    }
+
+    // Arranque
+    loadState();
+  </script>
+</body>
+</html>
