@@ -71,13 +71,13 @@
       <!-- ================= PESTAÑA 1: HOY ================= -->
       <section id="tab-hoy" class="space-y-5">
         
-        <!-- Tarjeta MacroFactor: Rango y Calorías -->
+        <!-- Tarjeta Rango y Calorías -->
         <div class="bg-white rounded-3xl p-5 border border-neutral-200/90 shadow-sm relative text-center">
           <span class="text-[11px] font-bold text-neutral-400 uppercase tracking-wider">Calorías Diarias</span>
           <div class="my-1">
             <span class="text-3xl font-black text-neutral-900" id="dash-consumed">0</span>
             <span class="text-neutral-400 font-bold text-lg"> / </span>
-            <span class="text-lg font-bold text-neutral-600" id="dash-target">1740</span>
+            <span class="text-lg font-bold text-neutral-600" id="dash-target">--</span>
             <span class="text-xs text-neutral-400 block font-semibold">kcal consumidas</span>
           </div>
 
@@ -85,29 +85,29 @@
             <div id="progress-bar" class="h-full bg-emerald-500 rounded-full transition-all duration-300" style="width: 0%"></div>
           </div>
           <div class="flex justify-between items-center text-[11px] font-bold text-neutral-400 mt-1.5 px-1">
-            <span id="dash-remaining">1740 kcal restantes</span>
+            <span id="dash-remaining">-- kcal restantes</span>
             <span id="dash-percent" class="text-neutral-800">0%</span>
           </div>
 
-          <!-- Macros con metas y medidores -->
+          <!-- Macros con metas dinámicas calculadas -->
           <div class="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-neutral-100">
             <div class="p-2.5 rounded-2xl bg-neutral-50 border border-neutral-150">
               <span class="text-[10px] uppercase font-bold text-neutral-400">Proteína</span>
-              <p class="text-xs font-black text-neutral-900 mt-0.5"><span id="macro-p">0</span> / 186g</p>
+              <p class="text-xs font-black text-neutral-900 mt-0.5"><span id="macro-p">0</span> / <span id="target-macro-p">186</span>g</p>
               <div class="w-full bg-neutral-200 h-1.5 rounded-full mt-1.5 overflow-hidden">
                 <div id="bar-p" class="bg-amber-500 h-full" style="width: 0%"></div>
               </div>
             </div>
             <div class="p-2.5 rounded-2xl bg-neutral-50 border border-neutral-150">
               <span class="text-[10px] uppercase font-bold text-neutral-400">Carbos</span>
-              <p class="text-xs font-black text-neutral-900 mt-0.5"><span id="macro-c">0</span> / 160g</p>
+              <p class="text-xs font-black text-neutral-900 mt-0.5"><span id="macro-c">0</span> / <span id="target-macro-c">160</span>g</p>
               <div class="w-full bg-neutral-200 h-1.5 rounded-full mt-1.5 overflow-hidden">
                 <div id="bar-c" class="bg-sky-500 h-full" style="width: 0%"></div>
               </div>
             </div>
             <div class="p-2.5 rounded-2xl bg-neutral-50 border border-neutral-150">
               <span class="text-[10px] uppercase font-bold text-neutral-400">Grasas</span>
-              <p class="text-xs font-black text-neutral-900 mt-0.5"><span id="macro-g">0</span> / 50g</p>
+              <p class="text-xs font-black text-neutral-900 mt-0.5"><span id="macro-g">0</span> / <span id="target-macro-g">50</span>g</p>
               <div class="w-full bg-neutral-200 h-1.5 rounded-full mt-1.5 overflow-hidden">
                 <div id="bar-g" class="bg-rose-500 h-full" style="width: 0%"></div>
               </div>
@@ -212,10 +212,10 @@
           <p class="text-xs text-neutral-500">Pesaje cada 7 días para evitar fluctuaciones de agua y evaluar tu adherencia proteica.</p>
         </div>
 
-        <!-- Evaluación Nutricional de la Semana (Semáforo de Proteína) -->
+        <!-- Diagnóstico Nutricional de la Semana -->
         <div class="bg-white rounded-3xl p-5 border border-neutral-200/90 shadow-sm space-y-3">
           <div class="flex justify-between items-center">
-            <h3 class="font-bold text-xs uppercase tracking-wider text-neutral-400">Diagnóstico de Proteína (Semanal)</h3>
+            <h3 class="font-bold text-xs uppercase tracking-wider text-neutral-400">Diagnóstico de Proteína</h3>
             <span id="protein-badge" class="px-2.5 py-1 rounded-full text-[11px] font-black bg-emerald-50 text-emerald-700 border border-emerald-200">Óptimo</span>
           </div>
 
@@ -226,14 +226,14 @@
             <div>
               <p class="text-xs font-bold text-neutral-900" id="protein-feedback-title">Proteína en rango ideal</p>
               <p class="text-[11px] text-neutral-600 mt-0.5 leading-relaxed" id="protein-feedback-desc">
-                Promedias más de 1.8g/kg. Estás protegiendo tu masa muscular mientras mantienes el déficit calórico.
+                Promedias una ingesta adecuada para proteger tu masa muscular durante el déficit.
               </p>
             </div>
           </div>
 
           <div class="grid grid-cols-2 gap-2 text-center pt-1">
             <div class="p-2.5 bg-neutral-50 rounded-xl border border-neutral-150">
-              <span class="text-[10px] font-bold text-neutral-400 uppercase">Promedio Diario</span>
+              <span class="text-[10px] font-bold text-neutral-400 uppercase">Promedio Ingesta</span>
               <p class="text-sm font-black text-neutral-900 mt-0.5"><span id="avg-protein-val">0</span>g / día</p>
             </div>
             <div class="p-2.5 bg-neutral-50 rounded-xl border border-neutral-150">
@@ -243,7 +243,7 @@
           </div>
         </div>
 
-        <!-- Tarjeta Meta & Proyección de Tiempo -->
+        <!-- Tarjeta Meta & Proyección de Tiempo según tu déficit activo -->
         <div class="bg-white rounded-3xl p-5 border border-neutral-200/90 shadow-sm space-y-4">
           <div class="flex justify-between items-start">
             <div>
@@ -301,63 +301,129 @@
         </div>
       </section>
 
-      <!-- ================= PESTAÑA 3: PLAN ================= -->
+      <!-- ================= PESTAÑA 3: PLANIFICADOR COMPLETO ================= -->
       <section id="tab-plan" class="hidden space-y-5">
         <div>
           <h2 class="text-lg font-black text-neutral-900">Planificador & Déficit</h2>
-          <p class="text-xs text-neutral-500">Configurado para 93 kg con déficit de 400 kcal.</p>
+          <p class="text-xs text-neutral-500">Calcula tu gasto con Mifflin-St Jeor y tus sesiones de deporte.</p>
         </div>
 
+        <!-- 1. Medidas -->
         <div class="bg-white rounded-3xl p-5 border border-neutral-200/80 shadow-sm space-y-4">
-          <h3 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Tus Medidas Base</h3>
+          <h3 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">1. Tus Medidas</h3>
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label class="text-[11px] font-bold text-neutral-500 block mb-1">Peso (kg)</label>
-              <input type="number" id="input-weight" value="93" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-sm font-semibold">
+              <input type="number" id="input-weight" value="93" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-sm font-semibold focus:outline-none focus:border-neutral-900">
             </div>
             <div>
               <label class="text-[11px] font-bold text-neutral-500 block mb-1">Estatura (cm)</label>
-              <input type="number" id="input-height" value="180" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-sm font-semibold">
+              <input type="number" id="input-height" value="180" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-sm font-semibold focus:outline-none focus:border-neutral-900">
             </div>
             <div>
               <label class="text-[11px] font-bold text-neutral-500 block mb-1">Edad (años)</label>
-              <input type="number" id="input-age" value="27" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-sm font-semibold">
+              <input type="number" id="input-age" value="27" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-sm font-semibold focus:outline-none focus:border-neutral-900">
             </div>
             <div>
               <label class="text-[11px] font-bold text-neutral-500 block mb-1">Sexo</label>
-              <select id="input-gender" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-sm font-semibold">
+              <select id="input-gender" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-sm font-semibold focus:outline-none focus:border-neutral-900">
                 <option value="male" selected>Hombre</option>
                 <option value="female">Mujer</option>
               </select>
             </div>
           </div>
-          <button onclick="calculatePlan()" class="w-full py-3 bg-neutral-900 text-white rounded-2xl font-bold text-xs tracking-wide hover:bg-neutral-800 transition">
-            Recalcular Meta Diaria
+        </div>
+
+        <!-- 2. Deporte Semanal -->
+        <div class="bg-white rounded-3xl p-5 border border-neutral-200/80 shadow-sm space-y-4">
+          <h3 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">2. Entrenamiento Semanal</h3>
+          <p class="text-xs text-neutral-500 -mt-2">Déjalos en 0 si prefieres sumar el deporte con los botones del día a día.</p>
+
+          <div class="p-3 rounded-2xl bg-neutral-50 border border-neutral-150 space-y-2">
+            <div class="flex items-center space-x-2 text-neutral-900 font-bold text-xs">
+              <i data-lucide="bike" class="w-4 h-4 text-emerald-600"></i>
+              <span>Ciclismo (Ruta / Spinning)</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div>
+                <span class="text-[10px] text-neutral-400 block">Días / sem</span>
+                <input type="number" id="bike-days" value="0" min="0" max="7" class="w-full bg-white border border-neutral-200 rounded-lg px-2 py-1 font-bold mt-1 text-center">
+              </div>
+              <div>
+                <span class="text-[10px] text-neutral-400 block">Horas x sesión</span>
+                <input type="number" step="0.5" id="bike-hours" value="1.0" min="0" class="w-full bg-white border border-neutral-200 rounded-lg px-2 py-1 font-bold mt-1 text-center">
+              </div>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-2xl bg-neutral-50 border border-neutral-150 space-y-2">
+            <div class="flex items-center space-x-2 text-neutral-900 font-bold text-xs">
+              <i data-lucide="activity" class="w-4 h-4 text-indigo-600"></i>
+              <span>Vóleibol (Entreno / Partido)</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div>
+                <span class="text-[10px] text-neutral-400 block">Días / sem</span>
+                <input type="number" id="volley-days" value="0" min="0" max="7" class="w-full bg-white border border-neutral-200 rounded-lg px-2 py-1 font-bold mt-1 text-center">
+              </div>
+              <div>
+                <span class="text-[10px] text-neutral-400 block">Horas x sesión</span>
+                <input type="number" step="0.5" id="volley-hours" value="1.5" min="0" class="w-full bg-white border border-neutral-200 rounded-lg px-2 py-1 font-bold mt-1 text-center">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Nivel de Déficit Elegible -->
+        <div class="bg-white rounded-3xl p-5 border border-neutral-200/80 shadow-sm space-y-3">
+          <h3 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">3. Nivel de Déficit</h3>
+          <div class="grid grid-cols-2 gap-2">
+            <label class="cursor-pointer">
+              <input type="radio" name="deficit-level" value="400" checked class="peer hidden">
+              <div class="p-3 rounded-2xl border border-neutral-200 peer-checked:border-neutral-900 peer-checked:bg-neutral-900 peer-checked:text-white transition text-center">
+                <p class="font-bold text-xs">Moderado</p>
+                <p class="text-[10px] opacity-75">-400 kcal/día</p>
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="deficit-level" value="600" class="peer hidden">
+              <div class="p-3 rounded-2xl border border-neutral-200 peer-checked:border-neutral-900 peer-checked:bg-neutral-900 peer-checked:text-white transition text-center">
+                <p class="font-bold text-xs">Agresivo</p>
+                <p class="text-[10px] opacity-75">-600 kcal/día</p>
+              </div>
+            </label>
+          </div>
+
+          <button onclick="calculatePlan()" class="w-full mt-2 py-3 bg-neutral-900 text-white rounded-2xl font-bold text-xs tracking-wide hover:bg-neutral-800 transition">
+            Calcular Mi Meta Exacta
           </button>
         </div>
 
-        <div id="calc-result-box" class="bg-neutral-900 text-white rounded-3xl p-6 shadow-xl space-y-3">
+        <!-- Caja de Resultados Calculados -->
+        <div id="calc-result-box" class="hidden bg-neutral-900 text-white rounded-3xl p-6 shadow-xl space-y-3">
           <span class="text-[10px] uppercase font-bold text-neutral-400 tracking-wider">Tu Prescripción Nutricional</span>
           <div class="flex items-baseline justify-between border-b border-neutral-800 pb-3">
             <div>
-              <p class="text-3xl font-black" id="res-target-kcal">1740</p>
-              <p class="text-xs text-neutral-400">kcal base al día</p>
+              <p class="text-3xl font-black" id="res-target-kcal">0</p>
+              <p class="text-xs text-neutral-400">kcal máximas al día</p>
             </div>
             <div class="text-right text-xs text-neutral-300">
-              <p>Mantenimiento: <span id="res-maint-kcal" class="font-bold text-white">2140</span></p>
-              <p class="text-emerald-400 font-semibold">-400 kcal déficit</p>
+              <p>Mantenimiento: <span id="res-maint-kcal" class="font-bold text-white">0</span></p>
+              <p class="text-emerald-400 font-semibold" id="res-deficit-val">-400 kcal déficit</p>
             </div>
           </div>
+
           <div class="grid grid-cols-2 gap-2 text-xs pt-1">
             <div class="bg-neutral-800/60 p-2.5 rounded-xl border border-neutral-700/50">
-              <span class="text-neutral-400 block text-[10px]">Proteína meta</span>
+              <span class="text-neutral-400 block text-[10px]">Proteína recomendada</span>
               <span class="text-sm font-bold text-white" id="res-protein">186g</span>
             </div>
             <div class="bg-neutral-800/60 p-2.5 rounded-xl border border-neutral-700/50">
-              <span class="text-neutral-400 block text-[10px]">Agua meta</span>
+              <span class="text-neutral-400 block text-[10px]">Meta de agua</span>
               <span class="text-sm font-bold text-white" id="res-water">3250 ml</span>
             </div>
           </div>
+
           <button onclick="applyCalculatedPlan()" class="w-full py-3 bg-white text-neutral-900 rounded-xl font-bold text-xs mt-2 hover:bg-neutral-100 transition shadow">
             Guardar Como Mi Meta Activa
           </button>
@@ -418,9 +484,9 @@
         <h3 class="font-bold text-neutral-900 text-base">Pesaje Semanal</h3>
         <button onclick="closeWeightModal()" class="text-neutral-400 hover:text-neutral-800"><i data-lucide="x" class="w-5 h-5"></i></button>
       </div>
-      <p class="text-xs text-neutral-500 -mt-2">Recomendación: pésate en ayunas, después de ir al baño, el mismo día de la semana.</p>
+      <p class="text-xs text-neutral-500 -mt-2">Pésate en ayunas el mismo día de la semana.</p>
       <div>
-        <label class="text-[11px] font-bold text-neutral-500 block mb-1">Peso oficial en báscula (kg)</label>
+        <label class="text-[11px] font-bold text-neutral-500 block mb-1">Peso en báscula (kg)</label>
         <input type="number" step="0.1" id="input-weight-val" placeholder="Ej. 92.2" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-sm font-semibold">
       </div>
       <button onclick="saveNewWeight()" class="w-full py-3 bg-neutral-900 text-white rounded-xl font-bold text-xs">Guardar Pesaje de la Semana</button>
@@ -505,9 +571,14 @@
       return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
     }
 
+    // Configuración con metas activas dinámicas
     let config = {
-      targetKcal: 1740,
-      targetWater: 3250,
+      targetKcal: parseInt(localStorage.getItem('revive_target_kcal')) || 1740,
+      targetWater: parseInt(localStorage.getItem('revive_target_water')) || 3250,
+      targetProtein: parseInt(localStorage.getItem('revive_target_p')) || 186,
+      targetCarbs: parseInt(localStorage.getItem('revive_target_c')) || 160,
+      targetFat: parseInt(localStorage.getItem('revive_target_g')) || 50,
+      activeDeficit: parseInt(localStorage.getItem('revive_active_deficit')) || 400,
       targetWeight: parseFloat(localStorage.getItem('revive_target_weight')) || 85.0,
       startWeight: parseFloat(localStorage.getItem('revive_start_weight')) || 93.0,
       apiKey: localStorage.getItem('revive_gemini_key') || DEFAULT_API_KEY
@@ -585,9 +656,13 @@
       document.getElementById('macro-c').textContent = consumedC;
       document.getElementById('macro-g').textContent = consumedG;
 
-      document.getElementById('bar-p').style.width = `${Math.min(100, (consumedP / 186) * 100)}%`;
-      document.getElementById('bar-c').style.width = `${Math.min(100, (consumedC / 160) * 100)}%`;
-      document.getElementById('bar-g').style.width = `${Math.min(100, (consumedG / 50) * 100)}%`;
+      document.getElementById('target-macro-p').textContent = config.targetProtein;
+      document.getElementById('target-macro-c').textContent = config.targetCarbs;
+      document.getElementById('target-macro-g').textContent = config.targetFat;
+
+      document.getElementById('bar-p').style.width = `${Math.min(100, (consumedP / config.targetProtein) * 100)}%`;
+      document.getElementById('bar-c').style.width = `${Math.min(100, (consumedC / config.targetCarbs) * 100)}%`;
+      document.getElementById('bar-g').style.width = `${Math.min(100, (consumedG / config.targetFat) * 100)}%`;
 
       document.getElementById('water-target').textContent = config.targetWater;
       document.getElementById('water-consumed').textContent = dayData.water;
@@ -627,7 +702,7 @@
       lucide.createIcons();
     }
 
-    // LÓGICA DE CONTROL SEMANAL & PROTEÍNA
+    // CONTROL SEMANAL & EVALUACIÓN PROTEICA
     function updateWeightUI() {
       document.getElementById('target-weight-display').textContent = config.targetWeight.toFixed(1);
       
@@ -644,9 +719,9 @@
       const remainingKg = Math.max(0, currentWeight - config.targetWeight);
       document.getElementById('weight-remaining-label').textContent = `${remainingKg.toFixed(1)} kg`;
 
-      // Estimación temporal: 1 kg grasa = 7700 kcal
-      // Con -400 kcal/día = 2800 kcal/sem (~0.36 kg/sem -> ~21 días por kg)
-      const daysNeeded = Math.round((remainingKg * 7700) / 400);
+      // Proyección basada en el déficit diario activo
+      const activeDeficit = config.activeDeficit || 400;
+      const daysNeeded = Math.round((remainingKg * 7700) / activeDeficit);
       const weeksNeeded = Math.ceil(daysNeeded / 7);
 
       if (remainingKg <= 0) {
@@ -655,19 +730,15 @@
         const etaDate = new Date();
         etaDate.setDate(etaDate.getDate() + daysNeeded);
         const options = { day: 'numeric', month: 'short', year: 'numeric' };
-        document.getElementById('weight-eta-text').textContent = `Meta aproximada: ${etaDate.toLocaleDateString('es-ES', options)} (~${weeksNeeded} semanas a paso seguro)`;
+        document.getElementById('weight-eta-text').textContent = `Meta: ${etaDate.toLocaleDateString('es-ES', options)} (~${weeksNeeded} semanas a -${activeDeficit} kcal/día)`;
       }
 
-      // DIAGNÓSTICO SEMANAL DE PROTEÍNA
       evaluateWeeklyProtein(currentWeight);
-
-      // Curva y Lista
       drawWeightChart();
       renderWeightList();
     }
 
     function evaluateWeeklyProtein(currentWeight) {
-      // Tomar los últimos días registrados en historyData
       const dates = Object.keys(historyData);
       let totalProtein = 0;
       let countedDays = 0;
@@ -680,7 +751,6 @@
         }
       });
 
-      // Si no hay días pasados, evaluar el día actual
       if (countedDays === 0) {
         const todayP = ((historyData[currentDateStr] && historyData[currentDateStr].meals) || []).reduce((sum, m) => sum + (m.p || 0), 0);
         totalProtein = todayP;
@@ -704,21 +774,21 @@
         iconBox.className = "w-8 h-8 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 mt-0.5";
         iconBox.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i>';
         title.textContent = "Proteína óptima para definir";
-        desc.textContent = `Estás en ${ratio} g/kg (meta: 1.8 - 2.2 g/kg). Tu masa muscular está completamente protegida durante el déficit.`;
+        desc.textContent = `Estás en ${ratio} g/kg. Tu masa muscular está protegida frente a tus sesiones deportivas en déficit.`;
       } else if (ratio >= 1.4) {
         badge.textContent = "Aceptable";
         badge.className = "px-2.5 py-1 rounded-full text-[11px] font-black bg-amber-50 text-amber-700 border border-amber-200";
         iconBox.className = "w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 mt-0.5";
         iconBox.innerHTML = '<i data-lucide="alert-triangle" class="w-4 h-4"></i>';
         title.textContent = "Un poco baja para tu peso";
-        desc.textContent = `Promedias ${ratio} g/kg (${avgP}g). Para tus 93 kg, intenta llegar a 186g incorporando colaciones como yogur proteico, claras o atún.`;
+        desc.textContent = `Promedias ${ratio} g/kg (${avgP}g). Apunta a ${config.targetProtein}g para mantener el músculo intacto.`;
       } else {
         badge.textContent = "Baja";
         badge.className = "px-2.5 py-1 rounded-full text-[11px] font-black bg-rose-50 text-rose-700 border border-rose-200";
         iconBox.className = "w-8 h-8 rounded-xl bg-rose-500 text-white flex items-center justify-center shrink-0 mt-0.5";
         iconBox.innerHTML = '<i data-lucide="info" class="w-4 h-4"></i>';
-        title.textContent = "Riesgo de perder músculo";
-        desc.textContent = `Promedias solo ${ratio} g/kg. En déficit calórico con vóley o ciclismo, necesitas priorizar fuentes proteicas en cada plato.`;
+        title.textContent = "Riesgo de pérdida muscular";
+        desc.textContent = `Promedias solo ${ratio} g/kg. En déficit con vóley o ciclismo debes asegurar fuentes proteicas en cada comida.`;
       }
       lucide.createIcons();
     }
@@ -727,7 +797,7 @@
       const svg = document.getElementById('weight-svg');
       document.getElementById('weight-entries-count').textContent = `${weightHistory.length} registros`;
       if (weightHistory.length < 2) {
-        svg.innerHTML = '<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#9ca3af" font-size="11" font-weight="600">Registra 2 semanas para ver tu tendencia</text>';
+        svg.innerHTML = '<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#9ca3af" font-size="11" font-weight="600">Registra 2 semanas para ver tu curva</text>';
         return;
       }
 
@@ -805,6 +875,86 @@
         saveWeightData();
         closeTargetModal();
       }
+    }
+
+    // PLANIFICADOR CON CÁLCULO ACTIVO
+    let tempCalculated = {
+      targetKcal: 1740,
+      maintKcal: 2140,
+      deficit: 400,
+      water: 3250,
+      protein: 186,
+      carbs: 160,
+      fat: 50
+    };
+
+    function calculatePlan() {
+      const weight = parseFloat(document.getElementById('input-weight').value) || 93;
+      const height = parseFloat(document.getElementById('input-height').value) || 180;
+      const age = parseFloat(document.getElementById('input-age').value) || 27;
+      const gender = document.getElementById('input-gender').value;
+
+      let bmr = (10 * weight) + (6.25 * height) - (5 * age);
+      bmr = (gender === 'male') ? bmr + 5 : bmr - 161;
+
+      const baseDailyExpense = bmr * 1.25;
+      const bikeDays = parseFloat(document.getElementById('bike-days').value) || 0;
+      const bikeHours = parseFloat(document.getElementById('bike-hours').value) || 0;
+      const weeklyBikeKcal = bikeDays * (7.5 * weight * bikeHours);
+
+      const volleyDays = parseFloat(document.getElementById('volley-days').value) || 0;
+      const volleyHours = parseFloat(document.getElementById('volley-hours').value) || 0;
+      const weeklyVolleyKcal = volleyDays * (5.5 * weight * volleyHours);
+
+      const dailySportKcal = (weeklyBikeKcal + weeklyVolleyKcal) / 7;
+      const totalMaintenance = Math.round(baseDailyExpense + dailySportKcal);
+
+      const deficitSelected = parseInt(document.querySelector('input[name="deficit-level"]:checked').value);
+      const targetCalories = totalMaintenance - deficitSelected;
+
+      const suggestedProtein = Math.round(weight * 2.0);
+      const suggestedFat = Math.round(weight * 0.55);
+      const carbsKcal = targetCalories - (suggestedProtein * 4) - (suggestedFat * 9);
+      const suggestedCarbs = Math.max(50, Math.round(carbsKcal / 4));
+      const suggestedWater = Math.round((weight * 35) + ((bikeDays * bikeHours + volleyDays * volleyHours) / 7 * 600));
+
+      tempCalculated = {
+        targetKcal: targetCalories,
+        maintKcal: totalMaintenance,
+        deficit: deficitSelected,
+        water: suggestedWater,
+        protein: suggestedProtein,
+        carbs: suggestedCarbs,
+        fat: suggestedFat
+      };
+
+      document.getElementById('res-target-kcal').textContent = targetCalories;
+      document.getElementById('res-maint-kcal').textContent = totalMaintenance;
+      document.getElementById('res-deficit-val').textContent = `-${deficitSelected} kcal déficit`;
+      document.getElementById('res-protein').textContent = `${suggestedProtein}g`;
+      document.getElementById('res-water').textContent = `${suggestedWater} ml`;
+
+      document.getElementById('calc-result-box').classList.remove('hidden');
+    }
+
+    function applyCalculatedPlan() {
+      config.targetKcal = tempCalculated.targetKcal;
+      config.targetWater = tempCalculated.water;
+      config.targetProtein = tempCalculated.protein;
+      config.targetCarbs = tempCalculated.carbs;
+      config.targetFat = tempCalculated.fat;
+      config.activeDeficit = tempCalculated.deficit;
+
+      localStorage.setItem('revive_target_kcal', config.targetKcal);
+      localStorage.setItem('revive_target_water', config.targetWater);
+      localStorage.setItem('revive_target_p', config.targetProtein);
+      localStorage.setItem('revive_target_c', config.targetCarbs);
+      localStorage.setItem('revive_target_g', config.targetFat);
+      localStorage.setItem('revive_active_deficit', config.activeDeficit);
+
+      updateUI();
+      switchTab('hoy');
+      alert(`¡Meta actualizada! Nuevas calorías: ${config.targetKcal} kcal/día.`);
     }
 
     // AGUA & ENTRENO
@@ -930,6 +1080,7 @@
       });
     }
 
+    // ESCÁNER NATIVO CON GEMINI-3.8-FLASH COMO PRIORIDAD 1
     async function handleImage(input) {
       if (!input.files || !input.files[0]) return;
       const file = input.files[0];
@@ -938,37 +1089,37 @@
       try {
         const base64Data = await compressImage(file);
         
-        const modelEndpoints = [
-          'https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent',
-          'https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent',
-          'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent'
+        // Modelos oficiales: gemini-3.8-flash exigido por Google Studio
+        const models = [
+          'gemini-3.8-flash',
+          'gemini-3-flash-preview',
+          'gemini-2.5-flash-lite'
         ];
 
         let resultData = null;
         let lastErrorMsg = '';
 
-        for (const endpoint of modelEndpoints) {
+        for (const model of models) {
           try {
-            const res = await fetch(`${endpoint}?key=${encodeURIComponent(config.apiKey)}`, {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(config.apiKey)}`;
+            const res = await fetch(url, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
                 contents: [{
                   role: 'user',
                   parts: [
-                    { text: 'Identifica el alimento o lee la tabla nutricional de la imagen. Responde SOLO un objeto JSON con este formato exacto: {"name":"Nombre","kcal":100,"p":10,"c":15,"g":2}' },
-                    { inlineData: { mimeType: 'image/jpeg', data: base64Data } }
+                    { text: 'Analiza la comida o tabla nutricional de la imagen. Responde EXCLUSIVAMENTE un objeto JSON válido sin texto adicional ni markdown con este formato: {"name":"Nombre corto","kcal":100,"p":10,"c":15,"g":2}' },
+                    { inline_data: { mime_type: 'image/jpeg', data: base64Data } }
                   ]
-                }],
-                generationConfig: {
-                  responseMimeType: 'application/json'
-                }
+                }]
               })
             });
 
             const data = await res.json();
             if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
-              resultData = JSON.parse(data.candidates[0].content.parts[0].text);
+              const raw = data.candidates[0].content.parts[0].text.replace(/```json/gi, '').replace(/```/g, '').trim();
+              resultData = JSON.parse(raw);
               break;
             } else if (data.error) {
               lastErrorMsg = data.error.message;
