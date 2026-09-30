@@ -698,8 +698,14 @@
       try {
         const base64Data = await compressImage(file);
         
-        // Modelos con reintento automático si uno experimenta congestión (high demand)
-        const models = ['gemini-3.8-flash', 'gemini-3-flash-preview'];
+        // Modelos ordenados por disponibilidad y estabilidad ante alta demanda
+        const models = [
+          'gemini-2.5-flash-lite',
+          'gemini-2.0-flash',
+          'gemini-2.5-pro',
+          'gemini-3.8-flash'
+        ];
+        
         let success = false;
         let lastError = null;
 
