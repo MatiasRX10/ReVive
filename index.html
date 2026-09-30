@@ -2,13 +2,15 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>ReVive - Salud & Déficit</title>
+  
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA1MTIgNTEyJz4KICA8cmVjdCB3aWR0aD0nNTEyJyBoZWlnaHQ9JzUxMicgcng9JzEyOCcgZmlsbD0nIzE3MTcxNycvPgogIDxwYXRoIGQ9J00xNjAgMTQwIEgyODAgQzMzNSAxNDAgMzcwIDE3MCAzNzAgMjIwIEMzNzAgMjY1IDMzOCAyOTIgMjkwIDI5OCBMMzc1IDM3MiBIMzE1IEwyNDAgMzA2IEgyMjAgVjM3MiBIMTYwIFYxNDAgWiBNMjIwIDE5MCBWMjU2IEgyNzIgQzMwMiAyNTYgMzE4IDI0NCAzMTggMjIzIEMzMTggMjAyIDMwMiAxOTAgMjcyIDE5MCBIMjIwIFonIGZpbGw9JyNmZmZmZmYnLz4KICA8Y2lyY2xlIGN4PSczNzUnIGN5PScxNTAnIHI9JzI0JyBmaWxsPScjMTBiOTgxJy8+Cjwvc3ZnPg==">
   <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA1MTIgNTEyJz4KICA8cmVjdCB3aWR0aD0nNTEyJyBoZWlnaHQ9JzUxMicgcng9JzEyOCcgZmlsbD0nIzE3MTcxNycvPgogIDxwYXRoIGQ9J00xNjAgMTQwIEgyODAgQzMzNSAxNDAgMzcwIDE3MCAzNzAgMjIwIEMzNzAgMjY1IDMzOCAyOTIgMjkwIDI5OCBMMzc1IDM3MiBIMzE1IEwyNDAgMzA2IEgyMjAgVjM3MiBIMTYwIFYxNDAgWiBNMjIwIDE5MCBWMjU2IEgyNzIgQzMwMiAyNTYgMzE4IDI0NCAzMTggMjIzIEMzMTggMjAyIDMwMiAxOTAgMjcyIDE5MCBIMjIwIFonIGZpbGw9JyNmZmZmZmYnLz4KICA8Y2lyY2xlIGN4PSczNzUnIGN5PScxNTAnIHI9JzI0JyBmaWxsPScjMTBiOTgxJy8+Cjwvc3ZnPg==">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="ReVive">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +20,7 @@
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       -webkit-tap-highlight-color: transparent;
-      background-color: #f1f5f9;
+      background-color: #f8fafc;
       margin: 0;
       padding: 0;
       overflow-x: hidden;
@@ -37,9 +39,9 @@
   <div class="w-full max-w-md bg-white min-h-screen flex flex-col shadow-2xl relative border-x border-neutral-150 pb-24 mx-auto">
     
     <!-- Top Bar -->
-    <header class="sticky top-0 bg-white/95 backdrop-blur-md z-30 px-6 py-4 border-b border-neutral-100 flex items-center justify-between">
+    <header class="sticky top-0 bg-white/95 backdrop-blur-md z-30 px-5 pt-4 pb-3 border-b border-neutral-100 flex items-center justify-between">
       <div class="flex items-center space-x-2">
-        <div class="w-8 h-8 rounded-full bg-neutral-900 flex items-center justify-center text-white font-black text-sm tracking-wider">
+        <div class="w-8 h-8 rounded-full bg-neutral-900 flex items-center justify-center text-white font-black text-sm">
           R
         </div>
         <span class="text-xl font-bold tracking-tight text-neutral-900">ReVive</span>
@@ -49,98 +51,108 @@
       </button>
     </header>
 
-    <!-- CONTENT AREA -->
+    <!-- Barra de Navegación de Calendario -->
+    <div id="calendar-bar" class="bg-neutral-50/80 px-5 py-2.5 border-b border-neutral-100 flex items-center justify-between text-xs font-semibold">
+      <button onclick="changeDate(-1)" class="p-1 rounded-lg hover:bg-neutral-200 text-neutral-500 transition">
+        <i data-lucide="chevron-left" class="w-4 h-4"></i>
+      </button>
+      <div class="flex items-center space-x-2">
+        <i data-lucide="calendar" class="w-3.5 h-3.5 text-neutral-400"></i>
+        <span id="date-display" class="text-neutral-800 font-bold">Hoy</span>
+      </div>
+      <button onclick="changeDate(1)" id="btn-next-date" class="p-1 rounded-lg hover:bg-neutral-200 text-neutral-500 transition">
+        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+      </button>
+    </div>
+
+    <!-- CONTENIDO -->
     <main class="flex-1 px-5 py-4 overflow-y-auto hide-scrollbar">
 
       <!-- ================= PESTAÑA 1: HOY ================= -->
-      <section id="tab-hoy" class="space-y-6">
+      <section id="tab-hoy" class="space-y-5">
         
-        <!-- Tarjeta de Progreso Calórico -->
-        <div class="bg-white rounded-3xl p-6 border border-neutral-200/80 shadow-sm relative overflow-hidden">
-          <div class="flex justify-between items-start mb-4">
-            <div>
-              <span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Déficit Diario</span>
-              <h2 class="text-2xl font-black text-neutral-900" id="dash-remaining">-- kcal</h2>
-              <p class="text-xs text-neutral-500 font-medium">calorías restantes</p>
-            </div>
-            <div class="text-right">
-              <span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Meta</span>
-              <p class="text-lg font-bold text-neutral-800" id="dash-target">-- kcal</p>
-            </div>
+        <!-- Tarjeta MacroFactor: Rango y Calorías -->
+        <div class="bg-white rounded-3xl p-5 border border-neutral-200/90 shadow-sm relative text-center">
+          <span class="text-[11px] font-bold text-neutral-400 uppercase tracking-wider">Calorías Diarias</span>
+          <div class="my-1">
+            <span class="text-3xl font-black text-neutral-900" id="dash-consumed">0</span>
+            <span class="text-neutral-400 font-bold text-lg"> / </span>
+            <span class="text-lg font-bold text-neutral-600" id="dash-target">1740</span>
+            <span class="text-xs text-neutral-400 block font-semibold">kcal consumidas</span>
           </div>
 
-          <!-- Barra de Progreso -->
-          <div class="w-full bg-neutral-100 h-3 rounded-full overflow-hidden p-0.5 border border-neutral-200/50">
-            <div id="progress-bar" class="h-full bg-neutral-900 rounded-full transition-all duration-500" style="width: 0%"></div>
+          <div class="relative w-full bg-neutral-100 h-2.5 rounded-full overflow-hidden mt-3 border border-neutral-200/60">
+            <div id="progress-bar" class="h-full bg-emerald-500 rounded-full transition-all duration-300" style="width: 0%"></div>
           </div>
-          
-          <div class="flex justify-between items-center text-xs font-medium text-neutral-500 mt-2">
-            <span>Consumidas: <b id="dash-consumed" class="text-neutral-800">0</b> kcal</span>
-            <span id="dash-percent" class="font-bold text-neutral-800">0%</span>
+          <div class="flex justify-between items-center text-[11px] font-bold text-neutral-400 mt-1.5 px-1">
+            <span id="dash-remaining">1740 kcal restantes</span>
+            <span id="dash-percent" class="text-neutral-800">0%</span>
           </div>
 
-          <!-- Macros -->
-          <div class="grid grid-cols-3 gap-2 mt-5 pt-4 border-t border-neutral-100 text-center">
-            <div class="p-2.5 rounded-2xl bg-neutral-50 border border-neutral-100">
+          <!-- Macros con metas y medidores -->
+          <div class="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-neutral-100">
+            <div class="p-2.5 rounded-2xl bg-neutral-50 border border-neutral-150">
               <span class="text-[10px] uppercase font-bold text-neutral-400">Proteína</span>
-              <p class="text-sm font-bold text-neutral-900 mt-0.5"><span id="macro-p">0</span>g</p>
+              <p class="text-xs font-black text-neutral-900 mt-0.5"><span id="macro-p">0</span> / 186g</p>
+              <div class="w-full bg-neutral-200 h-1.5 rounded-full mt-1.5 overflow-hidden">
+                <div id="bar-p" class="bg-amber-500 h-full" style="width: 0%"></div>
+              </div>
             </div>
-            <div class="p-2.5 rounded-2xl bg-neutral-50 border border-neutral-100">
+            <div class="p-2.5 rounded-2xl bg-neutral-50 border border-neutral-150">
               <span class="text-[10px] uppercase font-bold text-neutral-400">Carbos</span>
-              <p class="text-sm font-bold text-neutral-900 mt-0.5"><span id="macro-c">0</span>g</p>
+              <p class="text-xs font-black text-neutral-900 mt-0.5"><span id="macro-c">0</span> / 160g</p>
+              <div class="w-full bg-neutral-200 h-1.5 rounded-full mt-1.5 overflow-hidden">
+                <div id="bar-c" class="bg-sky-500 h-full" style="width: 0%"></div>
+              </div>
             </div>
-            <div class="p-2.5 rounded-2xl bg-neutral-50 border border-neutral-100">
+            <div class="p-2.5 rounded-2xl bg-neutral-50 border border-neutral-150">
               <span class="text-[10px] uppercase font-bold text-neutral-400">Grasas</span>
-              <p class="text-sm font-bold text-neutral-900 mt-0.5"><span id="macro-g">0</span>g</p>
+              <p class="text-xs font-black text-neutral-900 mt-0.5"><span id="macro-g">0</span> / 50g</p>
+              <div class="w-full bg-neutral-200 h-1.5 rounded-full mt-1.5 overflow-hidden">
+                <div id="bar-g" class="bg-rose-500 h-full" style="width: 0%"></div>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Módulo de Hidratación -->
-        <div class="bg-white rounded-3xl p-5 border border-neutral-200/80 shadow-sm">
-          <div class="flex items-center justify-between mb-3">
+        <div class="bg-white rounded-3xl p-5 border border-neutral-200/90 shadow-sm">
+          <div class="flex items-center justify-between mb-2">
             <div class="flex items-center space-x-2">
               <div class="w-8 h-8 rounded-full bg-sky-50 text-sky-500 flex items-center justify-center">
                 <i data-lucide="droplet" class="w-4 h-4 fill-sky-500"></i>
               </div>
               <div>
-                <h3 class="font-bold text-sm text-neutral-900">Agua Diaria</h3>
-                <p class="text-xs text-neutral-400">Meta recomendada: <span id="water-target">3250</span> ml</p>
+                <h3 class="font-bold text-sm text-neutral-900">Agua</h3>
+                <p class="text-xs text-neutral-400">Meta: <span id="water-target">3250</span> ml</p>
               </div>
             </div>
             <span class="text-base font-black text-sky-600"><span id="water-consumed">0</span> <span class="text-xs font-bold text-neutral-400">ml</span></span>
           </div>
 
-          <!-- Barra de Agua -->
-          <div class="w-full bg-sky-50 h-2.5 rounded-full overflow-hidden mb-3 border border-sky-100">
+          <div class="w-full bg-sky-50 h-2 rounded-full overflow-hidden mb-3 border border-sky-100">
             <div id="water-bar" class="h-full bg-sky-500 rounded-full transition-all duration-300" style="width: 0%"></div>
           </div>
 
           <div class="flex space-x-2">
-            <button onclick="addWater(250)" class="flex-1 py-2 px-3 rounded-xl bg-neutral-50 border border-neutral-200 text-xs font-semibold text-neutral-700 hover:bg-sky-50 hover:text-sky-600 transition flex items-center justify-center space-x-1">
-              <span>+1 Vaso</span>
-              <span class="text-[10px] text-neutral-400">(250ml)</span>
-            </button>
-            <button onclick="addWater(500)" class="flex-1 py-2 px-3 rounded-xl bg-neutral-50 border border-neutral-200 text-xs font-semibold text-neutral-700 hover:bg-sky-50 hover:text-sky-600 transition flex items-center justify-center space-x-1">
-              <span>+Botella</span>
-              <span class="text-[10px] text-neutral-400">(500ml)</span>
-            </button>
-            <button onclick="resetWater()" class="px-3 py-2 rounded-xl bg-neutral-50 border border-neutral-200 text-xs font-semibold text-neutral-400 hover:text-neutral-700">
+            <button onclick="addWater(250)" class="flex-1 py-2 px-3 rounded-xl bg-neutral-50 border border-neutral-200 text-xs font-bold text-neutral-700 hover:bg-sky-50 transition">+250ml</button>
+            <button onclick="addWater(500)" class="flex-1 py-2 px-3 rounded-xl bg-neutral-50 border border-neutral-200 text-xs font-bold text-neutral-700 hover:bg-sky-50 transition">+500ml</button>
+            <button onclick="resetWater()" class="px-3 py-2 rounded-xl bg-neutral-50 border border-neutral-200 text-xs font-bold text-neutral-400 hover:text-neutral-700">
               <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
             </button>
           </div>
         </div>
 
-        <!-- Módulo de Entreno Real -->
-        <div class="bg-white rounded-3xl p-5 border border-neutral-200/80 shadow-sm space-y-3">
+        <!-- Módulo de Entreno -->
+        <div class="bg-white rounded-3xl p-5 border border-neutral-200/90 shadow-sm space-y-3">
           <div class="flex items-center justify-between">
             <div class="flex items-center space-x-2">
               <div class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
                 <i data-lucide="flame" class="w-4 h-4 fill-emerald-500"></i>
               </div>
               <div>
-                <h3 class="font-bold text-sm text-neutral-900">Entrenamiento de Hoy</h3>
-                <p class="text-xs text-neutral-400">Desde Apple Salud / Rouvy / Huawei</p>
+                <h3 class="font-bold text-sm text-neutral-900">Entrenamiento</h3>
+                <p class="text-xs text-neutral-400">Calorías quemadas adicionales</p>
               </div>
             </div>
             <span class="text-sm font-black text-emerald-600">+<span id="workout-burned-kcal">0</span> kcal</span>
@@ -149,31 +161,31 @@
           <div id="workout-active-summary" class="hidden p-3 rounded-2xl bg-neutral-50 border border-neutral-100 flex items-center justify-between text-xs">
             <div>
               <p class="font-bold text-neutral-900" id="workout-summary-name">Rouvy / Ciclismo</p>
-              <p class="text-[10px] text-neutral-400" id="workout-summary-details">450 kcal quemadas</p>
+              <p class="text-[10px] text-neutral-400" id="workout-summary-details">450 kcal</p>
             </div>
-            <button onclick="clearTodayWorkout()" class="text-neutral-400 hover:text-red-500 p-1">
+            <button onclick="clearDayWorkout()" class="text-neutral-400 hover:text-red-500 p-1">
               <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
             </button>
           </div>
 
           <div class="grid grid-cols-2 gap-2">
-            <button onclick="addVolleyballQuick()" class="py-2.5 px-3 rounded-xl bg-indigo-50 border border-indigo-150 text-indigo-700 text-xs font-bold hover:bg-indigo-100 transition flex items-center justify-center space-x-1.5 shadow-sm">
+            <button onclick="addVolleyballQuick()" class="py-2.5 px-3 rounded-xl bg-indigo-50 border border-indigo-150 text-indigo-700 text-xs font-bold hover:bg-indigo-100 transition flex items-center justify-center space-x-1.5">
               <span>🏐 Vóley (+400 kcal)</span>
             </button>
-            <button onclick="openWorkoutModal('Rouvy / Bici')" class="py-2.5 px-3 rounded-xl bg-neutral-50 border border-neutral-200 text-neutral-800 text-xs font-bold hover:bg-neutral-100 transition flex items-center justify-center space-x-1.5 shadow-sm">
+            <button onclick="openWorkoutModal()" class="py-2.5 px-3 rounded-xl bg-neutral-50 border border-neutral-200 text-neutral-800 text-xs font-bold hover:bg-neutral-100 transition flex items-center justify-center space-x-1.5">
               <i data-lucide="bike" class="w-3.5 h-3.5 text-emerald-600"></i>
               <span>Rouvy / Bici</span>
             </button>
           </div>
         </div>
 
-        <!-- Acciones de Registro -->
+        <!-- Botones de Acción -->
         <div class="grid grid-cols-2 gap-3">
           <label class="cursor-pointer bg-neutral-900 text-white rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-sm hover:bg-neutral-800 transition">
             <input type="file" id="camera-input" accept="image/*" class="hidden" onchange="handleImage(this)">
             <i data-lucide="camera" class="w-6 h-6 mb-1 text-white"></i>
             <span class="font-bold text-xs">Foto de Comida</span>
-            <span class="text-[10px] text-neutral-400">Escaneo con IA</span>
+            <span class="text-[10px] text-neutral-400">Escáner Nutricional</span>
           </label>
           <button onclick="openManualModal()" class="bg-white text-neutral-900 border border-neutral-200 rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-sm hover:bg-neutral-50 transition">
             <i data-lucide="plus-circle" class="w-6 h-6 mb-1 text-neutral-700"></i>
@@ -188,174 +200,204 @@
             <h3 class="font-bold text-sm text-neutral-900">Comidas Registradas</h3>
             <span class="text-xs text-neutral-400" id="meals-count">0 items</span>
           </div>
-          <div id="meals-list" class="space-y-2">
-            <div class="text-center py-8 text-neutral-400 text-xs border border-dashed border-neutral-200 rounded-2xl">
-              No has registrado comidas hoy.<br>Toma una foto o ingresa una manualmente.
-            </div>
-          </div>
+          <div id="meals-list" class="space-y-2"></div>
         </div>
 
       </section>
 
-      <!-- ================= PESTAÑA 2: PLAN ================= -->
+      <!-- ================= PESTAÑA 2: PESO SEMANAL & EVALUACIÓN ================= -->
+      <section id="tab-peso" class="hidden space-y-5">
+        <div>
+          <h2 class="text-lg font-black text-neutral-900">Control Semanal & Rendimiento</h2>
+          <p class="text-xs text-neutral-500">Pesaje cada 7 días para evitar fluctuaciones de agua y evaluar tu adherencia proteica.</p>
+        </div>
+
+        <!-- Evaluación Nutricional de la Semana (Semáforo de Proteína) -->
+        <div class="bg-white rounded-3xl p-5 border border-neutral-200/90 shadow-sm space-y-3">
+          <div class="flex justify-between items-center">
+            <h3 class="font-bold text-xs uppercase tracking-wider text-neutral-400">Diagnóstico de Proteína (Semanal)</h3>
+            <span id="protein-badge" class="px-2.5 py-1 rounded-full text-[11px] font-black bg-emerald-50 text-emerald-700 border border-emerald-200">Óptimo</span>
+          </div>
+
+          <div class="p-3.5 rounded-2xl bg-neutral-50 border border-neutral-100 flex items-start space-x-3">
+            <div id="protein-icon-box" class="w-8 h-8 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 mt-0.5">
+              <i data-lucide="check" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-neutral-900" id="protein-feedback-title">Proteína en rango ideal</p>
+              <p class="text-[11px] text-neutral-600 mt-0.5 leading-relaxed" id="protein-feedback-desc">
+                Promedias más de 1.8g/kg. Estás protegiendo tu masa muscular mientras mantienes el déficit calórico.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 text-center pt-1">
+            <div class="p-2.5 bg-neutral-50 rounded-xl border border-neutral-150">
+              <span class="text-[10px] font-bold text-neutral-400 uppercase">Promedio Diario</span>
+              <p class="text-sm font-black text-neutral-900 mt-0.5"><span id="avg-protein-val">0</span>g / día</p>
+            </div>
+            <div class="p-2.5 bg-neutral-50 rounded-xl border border-neutral-150">
+              <span class="text-[10px] font-bold text-neutral-400 uppercase">Ratio Corporal</span>
+              <p class="text-sm font-black text-neutral-900 mt-0.5"><span id="ratio-protein-val">0.0</span> g/kg</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta Meta & Proyección de Tiempo -->
+        <div class="bg-white rounded-3xl p-5 border border-neutral-200/90 shadow-sm space-y-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-wider">Meta Definida</span>
+              <p class="text-2xl font-black text-neutral-900"><span id="target-weight-display">85.0</span> kg</p>
+            </div>
+            <button onclick="openTargetModal()" class="px-3 py-1.5 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-700 font-bold text-xs transition">
+              Cambiar Meta
+            </button>
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs font-bold mb-1">
+              <span class="text-neutral-500">Progreso a la meta</span>
+              <span id="weight-progress-percent" class="text-amber-500 font-black">0%</span>
+            </div>
+            <div class="w-full bg-neutral-100 h-3 rounded-full overflow-hidden p-0.5 border border-neutral-200">
+              <div id="weight-progress-bar" class="h-full bg-gradient-to-r from-amber-400 to-amber-500 rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+            <div class="flex justify-between text-[11px] text-neutral-400 mt-1.5 font-semibold">
+              <span>Último: <b id="weight-current-label" class="text-neutral-800">93.0 kg</b></span>
+              <span>Faltan: <b id="weight-remaining-label" class="text-neutral-800">8.0 kg</b></span>
+            </div>
+          </div>
+
+          <div class="p-3.5 bg-amber-50/80 rounded-2xl border border-amber-200/60 flex items-center space-x-3">
+            <div class="w-9 h-9 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0">
+              <i data-lucide="sparkles" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-neutral-900">Fecha Estimada de Llegada</p>
+              <p class="text-[11px] text-neutral-600 font-medium" id="weight-eta-text">Calculando tiempo estimado...</p>
+            </div>
+          </div>
+
+          <!-- Botón de Registro Semanal -->
+          <button onclick="openWeightModal()" class="w-full py-3 bg-neutral-900 text-white rounded-2xl font-bold text-xs tracking-wide hover:bg-neutral-800 transition flex items-center justify-center space-x-2 shadow-sm">
+            <i data-lucide="scale" class="w-4 h-4"></i>
+            <span>Registrar Pesaje de Esta Semana</span>
+          </button>
+        </div>
+
+        <!-- Curva Semanal de Peso -->
+        <div class="bg-white rounded-3xl p-5 border border-neutral-200/90 shadow-sm space-y-3">
+          <div class="flex justify-between items-center">
+            <h3 class="font-bold text-sm text-neutral-900">Evolución Semanal</h3>
+            <span class="text-xs text-neutral-400" id="weight-entries-count">0 semanas</span>
+          </div>
+
+          <div class="w-full h-36 bg-neutral-50 rounded-2xl border border-neutral-150 p-2 flex items-center justify-center relative overflow-hidden" id="weight-chart-container">
+            <svg id="weight-svg" class="w-full h-full"></svg>
+          </div>
+
+          <div id="weight-history-list" class="space-y-2 pt-2"></div>
+        </div>
+      </section>
+
+      <!-- ================= PESTAÑA 3: PLAN ================= -->
       <section id="tab-plan" class="hidden space-y-5">
         <div>
           <h2 class="text-lg font-black text-neutral-900">Planificador & Déficit</h2>
-          <p class="text-xs text-neutral-500">Calcula tu gasto con Mifflin-St Jeor y tus sesiones de deporte.</p>
+          <p class="text-xs text-neutral-500">Configurado para 93 kg con déficit de 400 kcal.</p>
         </div>
 
         <div class="bg-white rounded-3xl p-5 border border-neutral-200/80 shadow-sm space-y-4">
-          <h3 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">1. Tus Medidas</h3>
+          <h3 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Tus Medidas Base</h3>
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label class="text-[11px] font-bold text-neutral-500 block mb-1">Peso (kg)</label>
-              <input type="number" id="input-weight" value="93" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-sm font-semibold focus:outline-none focus:border-neutral-900">
+              <input type="number" id="input-weight" value="93" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-sm font-semibold">
             </div>
             <div>
               <label class="text-[11px] font-bold text-neutral-500 block mb-1">Estatura (cm)</label>
-              <input type="number" id="input-height" value="180" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-sm font-semibold focus:outline-none focus:border-neutral-900">
+              <input type="number" id="input-height" value="180" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-sm font-semibold">
             </div>
             <div>
               <label class="text-[11px] font-bold text-neutral-500 block mb-1">Edad (años)</label>
-              <input type="number" id="input-age" value="27" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-sm font-semibold focus:outline-none focus:border-neutral-900">
+              <input type="number" id="input-age" value="27" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-sm font-semibold">
             </div>
             <div>
               <label class="text-[11px] font-bold text-neutral-500 block mb-1">Sexo</label>
-              <select id="input-gender" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-sm font-semibold focus:outline-none focus:border-neutral-900">
+              <select id="input-gender" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-sm font-semibold">
                 <option value="male" selected>Hombre</option>
                 <option value="female">Mujer</option>
               </select>
             </div>
           </div>
-        </div>
-
-        <div class="bg-white rounded-3xl p-5 border border-neutral-200/80 shadow-sm space-y-4">
-          <h3 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">2. Entrenamiento Semanal</h3>
-          <p class="text-xs text-neutral-500 -mt-2">Déjalos en 0 si prefieres sumar el deporte con los botones del día a día.</p>
-
-          <div class="p-3 rounded-2xl bg-neutral-50 border border-neutral-150 space-y-2">
-            <div class="flex items-center space-x-2 text-neutral-900 font-bold text-xs">
-              <i data-lucide="bike" class="w-4 h-4 text-emerald-600"></i>
-              <span>Ciclismo (Ruta / Spinning)</span>
-            </div>
-            <div class="grid grid-cols-2 gap-2 text-xs">
-              <div>
-                <span class="text-[10px] text-neutral-400 block">Días / sem</span>
-                <input type="number" id="bike-days" value="0" min="0" max="7" class="w-full bg-white border border-neutral-200 rounded-lg px-2 py-1 font-bold mt-1 text-center">
-              </div>
-              <div>
-                <span class="text-[10px] text-neutral-400 block">Horas x sesión</span>
-                <input type="number" step="0.5" id="bike-hours" value="1.0" min="0" class="w-full bg-white border border-neutral-200 rounded-lg px-2 py-1 font-bold mt-1 text-center">
-              </div>
-            </div>
-          </div>
-
-          <div class="p-3 rounded-2xl bg-neutral-50 border border-neutral-150 space-y-2">
-            <div class="flex items-center space-x-2 text-neutral-900 font-bold text-xs">
-              <i data-lucide="activity" class="w-4 h-4 text-indigo-600"></i>
-              <span>Vóleibol (Entreno / Partido)</span>
-            </div>
-            <div class="grid grid-cols-2 gap-2 text-xs">
-              <div>
-                <span class="text-[10px] text-neutral-400 block">Días / sem</span>
-                <input type="number" id="volley-days" value="0" min="0" max="7" class="w-full bg-white border border-neutral-200 rounded-lg px-2 py-1 font-bold mt-1 text-center">
-              </div>
-              <div>
-                <span class="text-[10px] text-neutral-400 block">Horas x sesión</span>
-                <input type="number" step="0.5" id="volley-hours" value="1.5" min="0" class="w-full bg-white border border-neutral-200 rounded-lg px-2 py-1 font-bold mt-1 text-center">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-white rounded-3xl p-5 border border-neutral-200/80 shadow-sm space-y-3">
-          <h3 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">3. Nivel de Déficit</h3>
-          <div class="grid grid-cols-2 gap-2">
-            <label class="cursor-pointer">
-              <input type="radio" name="deficit-level" value="400" checked class="peer hidden">
-              <div class="p-3 rounded-2xl border border-neutral-200 peer-checked:border-neutral-900 peer-checked:bg-neutral-900 peer-checked:text-white transition text-center">
-                <p class="font-bold text-xs">Moderado</p>
-                <p class="text-[10px] opacity-75">-400 kcal/día</p>
-              </div>
-            </label>
-            <label class="cursor-pointer">
-              <input type="radio" name="deficit-level" value="600" class="peer hidden">
-              <div class="p-3 rounded-2xl border border-neutral-200 peer-checked:border-neutral-900 peer-checked:bg-neutral-900 peer-checked:text-white transition text-center">
-                <p class="font-bold text-xs">Agresivo</p>
-                <p class="text-[10px] opacity-75">-600 kcal/día</p>
-              </div>
-            </label>
-          </div>
-
-          <button onclick="calculatePlan()" class="w-full mt-2 py-3 bg-neutral-900 text-white rounded-2xl font-bold text-xs tracking-wide hover:bg-neutral-800 transition">
-            Calcular Mi Meta Exacta
+          <button onclick="calculatePlan()" class="w-full py-3 bg-neutral-900 text-white rounded-2xl font-bold text-xs tracking-wide hover:bg-neutral-800 transition">
+            Recalcular Meta Diaria
           </button>
         </div>
 
-        <div id="calc-result-box" class="hidden bg-neutral-900 text-white rounded-3xl p-6 shadow-xl space-y-3">
+        <div id="calc-result-box" class="bg-neutral-900 text-white rounded-3xl p-6 shadow-xl space-y-3">
           <span class="text-[10px] uppercase font-bold text-neutral-400 tracking-wider">Tu Prescripción Nutricional</span>
           <div class="flex items-baseline justify-between border-b border-neutral-800 pb-3">
             <div>
-              <p class="text-3xl font-black" id="res-target-kcal">0</p>
-              <p class="text-xs text-neutral-400">kcal máximas al día</p>
+              <p class="text-3xl font-black" id="res-target-kcal">1740</p>
+              <p class="text-xs text-neutral-400">kcal base al día</p>
             </div>
             <div class="text-right text-xs text-neutral-300">
-              <p>Mantenimiento: <span id="res-maint-kcal" class="font-bold text-white">0</span></p>
-              <p class="text-emerald-400 font-semibold" id="res-deficit-val">-400 kcal déficit</p>
+              <p>Mantenimiento: <span id="res-maint-kcal" class="font-bold text-white">2140</span></p>
+              <p class="text-emerald-400 font-semibold">-400 kcal déficit</p>
             </div>
           </div>
-
           <div class="grid grid-cols-2 gap-2 text-xs pt-1">
             <div class="bg-neutral-800/60 p-2.5 rounded-xl border border-neutral-700/50">
-              <span class="text-neutral-400 block text-[10px]">Proteína recomendada</span>
+              <span class="text-neutral-400 block text-[10px]">Proteína meta</span>
               <span class="text-sm font-bold text-white" id="res-protein">186g</span>
             </div>
             <div class="bg-neutral-800/60 p-2.5 rounded-xl border border-neutral-700/50">
-              <span class="text-neutral-400 block text-[10px]">Meta de agua</span>
+              <span class="text-neutral-400 block text-[10px]">Agua meta</span>
               <span class="text-sm font-bold text-white" id="res-water">3250 ml</span>
             </div>
           </div>
-
           <button onclick="applyCalculatedPlan()" class="w-full py-3 bg-white text-neutral-900 rounded-xl font-bold text-xs mt-2 hover:bg-neutral-100 transition shadow">
-            Guardar como Mi Meta Activa
+            Guardar Como Mi Meta Activa
           </button>
         </div>
       </section>
 
-      <!-- ================= PESTAÑA 3: AJUSTES ================= -->
+      <!-- ================= PESTAÑA 4: AJUSTES ================= -->
       <section id="tab-ajustes" class="hidden space-y-4">
         <div>
           <h2 class="text-lg font-black text-neutral-900">Ajustes & Configuración</h2>
-          <p class="text-xs text-neutral-500">Configura la API de Inteligencia Artificial para las fotos.</p>
+          <p class="text-xs text-neutral-500">Clave de API integrada permanentemente.</p>
         </div>
 
         <div class="bg-white rounded-3xl p-5 border border-neutral-200/80 shadow-sm space-y-3">
           <h3 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Gemini API Key</h3>
-          <p class="text-xs text-neutral-500">
-            Necesaria para procesar las fotos con visión artificial gratuita de Google.
-          </p>
-          <input type="password" id="api-key-input" placeholder="Pega tu clave AI Studio aquí..." class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-neutral-900">
-          
+          <input type="password" id="api-key-input" placeholder="Clave integrada" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-xs font-mono">
           <button onclick="saveApiKey()" class="w-full py-2.5 bg-neutral-900 text-white rounded-xl font-bold text-xs hover:bg-neutral-800 transition">
-            Guardar Clave
+            Actualizar Clave
           </button>
         </div>
 
         <div class="bg-white rounded-3xl p-5 border border-neutral-200/80 shadow-sm space-y-3">
-          <h3 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Datos de la App</h3>
-          <button onclick="resetDayData()" class="w-full py-2.5 border border-red-200 text-red-600 rounded-xl font-bold text-xs hover:bg-red-50 transition">
-            Reiniciar Comidas de Hoy
+          <h3 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Gestión de Datos</h3>
+          <button onclick="clearCurrentDay()" class="w-full py-2.5 border border-red-200 text-red-600 rounded-xl font-bold text-xs hover:bg-red-50 transition">
+            Borrar registros de esta fecha
           </button>
         </div>
       </section>
 
     </main>
 
-    <!-- Barra de Navegación Inferior -->
-    <nav class="fixed bottom-0 max-w-md w-full bg-white/95 backdrop-blur-md border-t border-neutral-200/80 py-2 px-6 flex justify-around items-center z-40">
+    <!-- Barra Inferior de 4 Pestañas -->
+    <nav class="fixed bottom-0 max-w-md w-full bg-white/95 backdrop-blur-md border-t border-neutral-200/80 py-2 px-4 flex justify-around items-center z-40">
       <button onclick="switchTab('hoy')" id="nav-hoy" class="flex flex-col items-center text-neutral-900 transition font-bold text-[11px]">
         <i data-lucide="circle-dot" class="w-5 h-5 mb-0.5"></i>
         <span>Hoy</span>
+      </button>
+      <button onclick="switchTab('peso')" id="nav-peso" class="flex flex-col items-center text-neutral-400 hover:text-neutral-700 transition font-medium text-[11px]">
+        <i data-lucide="scale" class="w-5 h-5 mb-0.5"></i>
+        <span>Semana & Peso</span>
       </button>
       <button onclick="switchTab('plan')" id="nav-plan" class="flex flex-col items-center text-neutral-400 hover:text-neutral-700 transition font-medium text-[11px]">
         <i data-lucide="calendar" class="w-5 h-5 mb-0.5"></i>
@@ -369,35 +411,63 @@
 
   </div>
 
-  <!-- MODAL: REGISTRO DE ENTRENO -->
+  <!-- MODAL: REGISTRAR PESO SEMANAL -->
+  <div id="modal-weight" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-white rounded-t-3xl sm:rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
+      <div class="flex justify-between items-center">
+        <h3 class="font-bold text-neutral-900 text-base">Pesaje Semanal</h3>
+        <button onclick="closeWeightModal()" class="text-neutral-400 hover:text-neutral-800"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <p class="text-xs text-neutral-500 -mt-2">Recomendación: pésate en ayunas, después de ir al baño, el mismo día de la semana.</p>
+      <div>
+        <label class="text-[11px] font-bold text-neutral-500 block mb-1">Peso oficial en báscula (kg)</label>
+        <input type="number" step="0.1" id="input-weight-val" placeholder="Ej. 92.2" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-sm font-semibold">
+      </div>
+      <button onclick="saveNewWeight()" class="w-full py-3 bg-neutral-900 text-white rounded-xl font-bold text-xs">Guardar Pesaje de la Semana</button>
+    </div>
+  </div>
+
+  <!-- MODAL: CAMBIAR META -->
+  <div id="modal-target" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-white rounded-t-3xl sm:rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
+      <div class="flex justify-between items-center">
+        <h3 class="font-bold text-neutral-900 text-base">Definir Peso Objetivo</h3>
+        <button onclick="closeTargetModal()" class="text-neutral-400 hover:text-neutral-800"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <div>
+        <label class="text-[11px] font-bold text-neutral-500 block mb-1">Peso Meta (kg)</label>
+        <input type="number" step="0.5" id="input-target-weight" placeholder="Ej. 85.0" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-sm font-semibold">
+      </div>
+      <button onclick="saveNewTargetWeight()" class="w-full py-3 bg-neutral-900 text-white rounded-xl font-bold text-xs">Guardar Meta</button>
+    </div>
+  </div>
+
+  <!-- MODALES DE COMIDA Y ENTRENO -->
   <div id="modal-workout" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
     <div class="bg-white rounded-t-3xl sm:rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
       <div class="flex justify-between items-center">
         <h3 class="font-bold text-neutral-900 text-base">Registrar Sesión Real</h3>
         <button onclick="closeWorkoutModal()" class="text-neutral-400 hover:text-neutral-800"><i data-lucide="x" class="w-5 h-5"></i></button>
       </div>
-      <p class="text-xs text-neutral-500 -mt-2">Mira las calorías activas quemadas y anótalas aquí:</p>
-      
       <div class="space-y-3">
         <div>
           <label class="text-[11px] font-bold text-neutral-500 block mb-1">Actividad</label>
           <select id="workout-type" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-xs font-semibold">
             <option value="Rouvy / Bici Indoor">Rouvy / Bici Indoor</option>
             <option value="Ciclismo Ruta">Ciclismo Ruta</option>
-            <option value="Vóleibol">Vóleibol (Entreno o Partido)</option>
+            <option value="Vóleibol">Vóleibol</option>
             <option value="Otro Entrenamiento">Otro Entrenamiento</option>
           </select>
         </div>
         <div>
-          <label class="text-[11px] font-bold text-neutral-500 block mb-1">Calorías Activas Quemadas (kcal)</label>
-          <input type="number" id="workout-kcal" placeholder="Ej. 520" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-xs font-semibold">
+          <label class="text-[11px] font-bold text-neutral-500 block mb-1">Calorías Quemadas (kcal)</label>
+          <input type="number" id="workout-kcal" placeholder="Ej. 450" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-xs font-semibold">
         </div>
       </div>
-      <button onclick="saveTodayWorkout()" class="w-full py-3 bg-neutral-900 text-white rounded-xl font-bold text-xs">Guardar Sesión</button>
+      <button onclick="saveDayWorkout()" class="w-full py-3 bg-neutral-900 text-white rounded-xl font-bold text-xs">Guardar Sesión</button>
     </div>
   </div>
 
-  <!-- MODAL: REGISTRO MANUAL -->
   <div id="modal-manual" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
     <div class="bg-white rounded-t-3xl sm:rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
       <div class="flex justify-between items-center">
@@ -405,58 +475,90 @@
         <button onclick="closeManualModal()" class="text-neutral-400 hover:text-neutral-800"><i data-lucide="x" class="w-5 h-5"></i></button>
       </div>
       <div class="space-y-3">
-        <input type="text" id="manual-name" placeholder="Ej. Pechuga de pollo con arroz" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-xs font-semibold">
-        <div class="grid grid-cols-2 gap-2">
-          <input type="number" id="manual-kcal" placeholder="Calorías (kcal)" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-xs font-semibold">
-          <input type="number" id="manual-protein" placeholder="Proteína (g)" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-xs font-semibold">
+        <input type="text" id="manual-name" placeholder="Ej. Yoghurt Protein Plus" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-xs font-semibold">
+        <div class="grid grid-cols-3 gap-2">
+          <input type="number" id="manual-kcal" placeholder="kcal" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-xs font-semibold">
+          <input type="number" id="manual-p" placeholder="Prot (g)" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-xs font-semibold">
+          <input type="number" id="manual-c" placeholder="Carb (g)" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2 text-xs font-semibold">
         </div>
       </div>
       <button onclick="addManualMeal()" class="w-full py-3 bg-neutral-900 text-white rounded-xl font-bold text-xs">Guardar Alimento</button>
     </div>
   </div>
 
-  <!-- LOADING OVERLAY -->
+  <!-- Loading -->
   <div id="loading-overlay" class="fixed inset-0 bg-white/90 backdrop-blur-sm z-50 hidden flex flex-col items-center justify-center">
     <div class="w-10 h-10 border-4 border-neutral-200 border-t-neutral-900 rounded-full animate-spin mb-3"></div>
-    <p class="font-bold text-neutral-900 text-sm">Analizando comida con IA...</p>
-    <p class="text-xs text-neutral-400">Estimando porciones y macros</p>
+    <p class="font-bold text-neutral-900 text-sm">Escaneando tabla nutricional...</p>
+    <p class="text-xs text-neutral-400">Extrayendo calorías y macros</p>
   </div>
 
-  <!-- Script Lógica ReVive -->
   <script>
     lucide.createIcons();
 
-    let state = {
+    const DEFAULT_API_KEY = "AQ.Ab8RN6IM0DETpArA7vqc8zyVgvHmT5NL6LQsHp3mJxTZf7PBTA";
+
+    let currentDateStr = getTodayStr();
+
+    function getTodayStr() {
+      const d = new Date();
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    }
+
+    let config = {
       targetKcal: 1740,
       targetWater: 3250,
-      consumedWater: 0,
-      todayWorkout: null,
-      meals: [],
-      apiKey: localStorage.getItem('revive_gemini_key') || ''
+      targetWeight: parseFloat(localStorage.getItem('revive_target_weight')) || 85.0,
+      startWeight: parseFloat(localStorage.getItem('revive_start_weight')) || 93.0,
+      apiKey: localStorage.getItem('revive_gemini_key') || DEFAULT_API_KEY
     };
 
-    function loadState() {
-      const saved = localStorage.getItem('revive_state');
-      if (saved) {
-        state = Object.assign(state, JSON.parse(saved));
+    let historyData = JSON.parse(localStorage.getItem('revive_history') || '{}');
+    let weightHistory = JSON.parse(localStorage.getItem('revive_weight_history') || '[{"date":"Semana 1","weight":93.0}]');
+
+    function ensureDateExists(dateStr) {
+      if (!historyData[dateStr]) {
+        historyData[dateStr] = { meals: [], water: 0, workout: null };
       }
-      document.getElementById('api-key-input').value = state.apiKey;
+    }
+
+    function saveHistory() {
+      localStorage.setItem('revive_history', JSON.stringify(historyData));
       updateUI();
     }
 
-    function saveState() {
-      localStorage.setItem('revive_state', JSON.stringify(state));
+    function saveWeightData() {
+      localStorage.setItem('revive_weight_history', JSON.stringify(weightHistory));
+      localStorage.setItem('revive_target_weight', config.targetWeight);
+      localStorage.setItem('revive_start_weight', config.startWeight);
+      updateWeightUI();
+    }
+
+    function changeDate(delta) {
+      const parts = currentDateStr.split('-').map(Number);
+      const d = new Date(parts[0], parts[1] - 1, parts[2]);
+      d.setDate(d.getDate() + delta);
+      currentDateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
       updateUI();
     }
 
     function updateUI() {
-      const consumedKcal = state.meals.reduce((sum, m) => sum + (m.kcal || 0), 0);
-      const consumedP = state.meals.reduce((sum, m) => sum + (m.p || 0), 0);
-      const consumedC = state.meals.reduce((sum, m) => sum + (m.c || 0), 0);
-      const consumedG = state.meals.reduce((sum, m) => sum + (m.g || 0), 0);
+      ensureDateExists(currentDateStr);
+      const dayData = historyData[currentDateStr];
 
-      const workoutKcal = (state.todayWorkout && state.todayWorkout.kcal) ? state.todayWorkout.kcal : 0;
-      const effectiveTarget = state.targetKcal + workoutKcal;
+      const isToday = currentDateStr === getTodayStr();
+      const parts = currentDateStr.split('-').map(Number);
+      const dateObj = new Date(parts[0], parts[1] - 1, parts[2]);
+      const options = { weekday: 'short', day: 'numeric', month: 'short' };
+      document.getElementById('date-display').textContent = isToday ? `Hoy (${dateObj.toLocaleDateString('es-ES', options)})` : dateObj.toLocaleDateString('es-ES', options);
+
+      const consumedKcal = dayData.meals.reduce((sum, m) => sum + (m.kcal || 0), 0);
+      const consumedP = dayData.meals.reduce((sum, m) => sum + (m.p || 0), 0);
+      const consumedC = dayData.meals.reduce((sum, m) => sum + (m.c || 0), 0);
+      const consumedG = dayData.meals.reduce((sum, m) => sum + (m.g || 0), 0);
+
+      const workoutKcal = (dayData.workout && dayData.workout.kcal) ? dayData.workout.kcal : 0;
+      const effectiveTarget = config.targetKcal + workoutKcal;
       const remaining = Math.max(0, effectiveTarget - consumedKcal);
       const percent = effectiveTarget > 0 ? Math.min(100, Math.round((consumedKcal / effectiveTarget) * 100)) : 0;
 
@@ -464,54 +566,55 @@
       const summaryBox = document.getElementById('workout-active-summary');
       if (burnedEl) burnedEl.textContent = workoutKcal;
       if (summaryBox) {
-        if (state.todayWorkout && state.todayWorkout.kcal > 0) {
+        if (dayData.workout && dayData.workout.kcal > 0) {
           summaryBox.classList.remove('hidden');
-          document.getElementById('workout-summary-name').textContent = state.todayWorkout.type;
-          document.getElementById('workout-summary-details').textContent = state.todayWorkout.kcal + ' kcal quemadas';
+          document.getElementById('workout-summary-name').textContent = dayData.workout.type;
+          document.getElementById('workout-summary-details').textContent = dayData.workout.kcal + ' kcal';
         } else {
           summaryBox.classList.add('hidden');
         }
       }
 
-      if (workoutKcal > 0) {
-        document.getElementById('dash-target').textContent = state.targetKcal + ' (+' + workoutKcal + ') kcal';
-      } else {
-        document.getElementById('dash-target').textContent = state.targetKcal + ' kcal';
-      }
-      document.getElementById('dash-remaining').textContent = remaining + ' kcal';
+      document.getElementById('dash-target').textContent = effectiveTarget;
       document.getElementById('dash-consumed').textContent = consumedKcal;
-      document.getElementById('dash-percent').textContent = percent + '%';
-      document.getElementById('progress-bar').style.width = percent + '%';
+      document.getElementById('dash-remaining').textContent = `${remaining} kcal restantes`;
+      document.getElementById('dash-percent').textContent = `${percent}%`;
+      document.getElementById('progress-bar').style.width = `${percent}%`;
 
       document.getElementById('macro-p').textContent = consumedP;
       document.getElementById('macro-c').textContent = consumedC;
       document.getElementById('macro-g').textContent = consumedG;
 
-      document.getElementById('water-target').textContent = state.targetWater;
-      document.getElementById('water-consumed').textContent = state.consumedWater;
-      const waterPercent = Math.min(100, Math.round((state.consumedWater / state.targetWater) * 100));
-      document.getElementById('water-bar').style.width = waterPercent + '%';
+      document.getElementById('bar-p').style.width = `${Math.min(100, (consumedP / 186) * 100)}%`;
+      document.getElementById('bar-c').style.width = `${Math.min(100, (consumedC / 160) * 100)}%`;
+      document.getElementById('bar-g').style.width = `${Math.min(100, (consumedG / 50) * 100)}%`;
 
-      renderMealsList();
+      document.getElementById('water-target').textContent = config.targetWater;
+      document.getElementById('water-consumed').textContent = dayData.water;
+      const waterPercent = Math.min(100, Math.round((dayData.water / config.targetWater) * 100));
+      document.getElementById('water-bar').style.width = `${waterPercent}%`;
+
+      renderMeals(dayData.meals);
+      updateWeightUI();
     }
 
-    function renderMealsList() {
+    function renderMeals(meals) {
       const container = document.getElementById('meals-list');
-      document.getElementById('meals-count').textContent = state.meals.length + ' items';
+      document.getElementById('meals-count').textContent = meals.length + ' items';
 
-      if (state.meals.length === 0) {
+      if (meals.length === 0) {
         container.innerHTML = `
           <div class="text-center py-8 text-neutral-400 text-xs border border-dashed border-neutral-200 rounded-2xl">
-            No has registrado comidas hoy.<br>Toma una foto o ingresa una manualmente.
+            Sin comidas registradas en este día.<br>Toma una foto o ingresa una manualmente.
           </div>`;
         return;
       }
 
-      container.innerHTML = state.meals.map((m, index) => `
+      container.innerHTML = meals.map((m, index) => `
         <div class="flex items-center justify-between p-3.5 bg-neutral-50 rounded-2xl border border-neutral-100">
           <div>
             <h4 class="font-bold text-xs text-neutral-900">${m.name}</h4>
-            <span class="text-[10px] text-neutral-400">Proteína: ${m.p || 0}g</span>
+            <span class="text-[10px] text-neutral-400">P: ${m.p || 0}g | C: ${m.c || 0}g | G: ${m.g || 0}g</span>
           </div>
           <div class="flex items-center space-x-3">
             <span class="font-black text-xs text-neutral-900">${m.kcal} kcal</span>
@@ -524,144 +627,288 @@
       lucide.createIcons();
     }
 
+    // LÓGICA DE CONTROL SEMANAL & PROTEÍNA
+    function updateWeightUI() {
+      document.getElementById('target-weight-display').textContent = config.targetWeight.toFixed(1);
+      
+      const currentWeight = weightHistory.length > 0 ? weightHistory[weightHistory.length - 1].weight : 93.0;
+      document.getElementById('weight-current-label').textContent = `${currentWeight.toFixed(1)} kg`;
+
+      const diffTotal = Math.max(0.1, config.startWeight - config.targetWeight);
+      const diffLost = Math.max(0, config.startWeight - currentWeight);
+      const progressPercent = Math.min(100, Math.max(0, Math.round((diffLost / diffTotal) * 100)));
+
+      document.getElementById('weight-progress-percent').textContent = `${progressPercent}%`;
+      document.getElementById('weight-progress-bar').style.width = `${progressPercent}%`;
+
+      const remainingKg = Math.max(0, currentWeight - config.targetWeight);
+      document.getElementById('weight-remaining-label').textContent = `${remainingKg.toFixed(1)} kg`;
+
+      // Estimación temporal: 1 kg grasa = 7700 kcal
+      // Con -400 kcal/día = 2800 kcal/sem (~0.36 kg/sem -> ~21 días por kg)
+      const daysNeeded = Math.round((remainingKg * 7700) / 400);
+      const weeksNeeded = Math.ceil(daysNeeded / 7);
+
+      if (remainingKg <= 0) {
+        document.getElementById('weight-eta-text').textContent = '¡Felicidades! Has alcanzado tu peso meta 🎉';
+      } else {
+        const etaDate = new Date();
+        etaDate.setDate(etaDate.getDate() + daysNeeded);
+        const options = { day: 'numeric', month: 'short', year: 'numeric' };
+        document.getElementById('weight-eta-text').textContent = `Meta aproximada: ${etaDate.toLocaleDateString('es-ES', options)} (~${weeksNeeded} semanas a paso seguro)`;
+      }
+
+      // DIAGNÓSTICO SEMANAL DE PROTEÍNA
+      evaluateWeeklyProtein(currentWeight);
+
+      // Curva y Lista
+      drawWeightChart();
+      renderWeightList();
+    }
+
+    function evaluateWeeklyProtein(currentWeight) {
+      // Tomar los últimos días registrados en historyData
+      const dates = Object.keys(historyData);
+      let totalProtein = 0;
+      let countedDays = 0;
+
+      dates.forEach(d => {
+        const dayP = (historyData[d].meals || []).reduce((sum, m) => sum + (m.p || 0), 0);
+        if (dayP > 0) {
+          totalProtein += dayP;
+          countedDays++;
+        }
+      });
+
+      // Si no hay días pasados, evaluar el día actual
+      if (countedDays === 0) {
+        const todayP = ((historyData[currentDateStr] && historyData[currentDateStr].meals) || []).reduce((sum, m) => sum + (m.p || 0), 0);
+        totalProtein = todayP;
+        countedDays = 1;
+      }
+
+      const avgP = Math.round(totalProtein / countedDays);
+      const ratio = (avgP / currentWeight).toFixed(2);
+
+      document.getElementById('avg-protein-val').textContent = avgP;
+      document.getElementById('ratio-protein-val').textContent = ratio;
+
+      const badge = document.getElementById('protein-badge');
+      const iconBox = document.getElementById('protein-icon-box');
+      const title = document.getElementById('protein-feedback-title');
+      const desc = document.getElementById('protein-feedback-desc');
+
+      if (ratio >= 1.8) {
+        badge.textContent = "Excelente";
+        badge.className = "px-2.5 py-1 rounded-full text-[11px] font-black bg-emerald-50 text-emerald-700 border border-emerald-200";
+        iconBox.className = "w-8 h-8 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 mt-0.5";
+        iconBox.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i>';
+        title.textContent = "Proteína óptima para definir";
+        desc.textContent = `Estás en ${ratio} g/kg (meta: 1.8 - 2.2 g/kg). Tu masa muscular está completamente protegida durante el déficit.`;
+      } else if (ratio >= 1.4) {
+        badge.textContent = "Aceptable";
+        badge.className = "px-2.5 py-1 rounded-full text-[11px] font-black bg-amber-50 text-amber-700 border border-amber-200";
+        iconBox.className = "w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 mt-0.5";
+        iconBox.innerHTML = '<i data-lucide="alert-triangle" class="w-4 h-4"></i>';
+        title.textContent = "Un poco baja para tu peso";
+        desc.textContent = `Promedias ${ratio} g/kg (${avgP}g). Para tus 93 kg, intenta llegar a 186g incorporando colaciones como yogur proteico, claras o atún.`;
+      } else {
+        badge.textContent = "Baja";
+        badge.className = "px-2.5 py-1 rounded-full text-[11px] font-black bg-rose-50 text-rose-700 border border-rose-200";
+        iconBox.className = "w-8 h-8 rounded-xl bg-rose-500 text-white flex items-center justify-center shrink-0 mt-0.5";
+        iconBox.innerHTML = '<i data-lucide="info" class="w-4 h-4"></i>';
+        title.textContent = "Riesgo de perder músculo";
+        desc.textContent = `Promedias solo ${ratio} g/kg. En déficit calórico con vóley o ciclismo, necesitas priorizar fuentes proteicas en cada plato.`;
+      }
+      lucide.createIcons();
+    }
+
+    function drawWeightChart() {
+      const svg = document.getElementById('weight-svg');
+      document.getElementById('weight-entries-count').textContent = `${weightHistory.length} registros`;
+      if (weightHistory.length < 2) {
+        svg.innerHTML = '<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#9ca3af" font-size="11" font-weight="600">Registra 2 semanas para ver tu tendencia</text>';
+        return;
+      }
+
+      const weights = weightHistory.map(w => w.weight);
+      const minW = Math.min(...weights) - 0.5;
+      const maxW = Math.max(...weights) + 0.5;
+      const wRange = maxW - minW || 1;
+
+      const width = 320;
+      const height = 110;
+      const stepX = width / (weightHistory.length - 1);
+
+      const points = weightHistory.map((w, i) => {
+        const x = i * stepX;
+        const y = height - ((w.weight - minW) / wRange) * (height - 24) - 12;
+        return { x, y, weight: w.weight };
+      });
+
+      const pathD = points.reduce((acc, p, i) => i === 0 ? `M ${p.x} ${p.y}` : `${acc} L ${p.x} ${p.y}`, '');
+      const areaD = `${pathD} L ${points[points.length - 1].x} ${height} L ${points[0].x} ${height} Z`;
+
+      svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+      svg.innerHTML = `
+        <defs>
+          <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.3" />
+            <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.0" />
+          </linearGradient>
+        </defs>
+        <path d="${areaD}" fill="url(#grad)" />
+        <path d="${pathD}" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" />
+        ${points.map(p => `<circle cx="${p.x}" cy="${p.y}" r="3.5" fill="#ffffff" stroke="#f59e0b" stroke-width="2" />`).join('')}
+      `;
+    }
+
+    function renderWeightList() {
+      const container = document.getElementById('weight-history-list');
+      const reversed = [...weightHistory].reverse();
+      container.innerHTML = reversed.map((item) => `
+        <div class="flex items-center justify-between p-2.5 bg-neutral-50 rounded-xl text-xs">
+          <span class="font-bold text-neutral-700">${item.date}</span>
+          <span class="font-black text-neutral-900">${item.weight.toFixed(1)} kg</span>
+        </div>
+      `).join('');
+    }
+
+    function openWeightModal() {
+      document.getElementById('modal-weight').classList.remove('hidden');
+    }
+    function closeWeightModal() {
+      document.getElementById('modal-weight').classList.add('hidden');
+    }
+    function saveNewWeight() {
+      const val = parseFloat(document.getElementById('input-weight-val').value);
+      if (val > 30 && val < 250) {
+        const nextWeekNum = weightHistory.length + 1;
+        const todayFormatted = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+        weightHistory.push({ date: `Sem ${nextWeekNum} (${todayFormatted})`, weight: val });
+        saveWeightData();
+        closeWeightModal();
+        document.getElementById('input-weight-val').value = '';
+      }
+    }
+
+    function openTargetModal() {
+      document.getElementById('modal-target').classList.remove('hidden');
+    }
+    function closeTargetModal() {
+      document.getElementById('modal-target').classList.add('hidden');
+    }
+    function saveNewTargetWeight() {
+      const val = parseFloat(document.getElementById('input-target-weight').value);
+      if (val > 30 && val < 250) {
+        config.targetWeight = val;
+        saveWeightData();
+        closeTargetModal();
+      }
+    }
+
+    // AGUA & ENTRENO
     function addWater(amount) {
-      state.consumedWater += amount;
-      saveState();
+      ensureDateExists(currentDateStr);
+      historyData[currentDateStr].water += amount;
+      saveHistory();
     }
     function resetWater() {
-      state.consumedWater = 0;
-      saveState();
+      ensureDateExists(currentDateStr);
+      historyData[currentDateStr].water = 0;
+      saveHistory();
     }
 
     function addVolleyballQuick() {
-      state.todayWorkout = { type: 'Vóleibol (2 hrs)', kcal: 400 };
-      state.targetWater = Math.max(state.targetWater, 3500);
-      saveState();
+      ensureDateExists(currentDateStr);
+      historyData[currentDateStr].workout = { type: 'Vóleibol', kcal: 400 };
+      saveHistory();
     }
-    function openWorkoutModal(defaultType) {
-      if (defaultType) {
-        document.getElementById('workout-type').value = 'Rouvy / Bici Indoor';
-      }
+    function openWorkoutModal() {
       document.getElementById('modal-workout').classList.remove('hidden');
     }
     function closeWorkoutModal() {
       document.getElementById('modal-workout').classList.add('hidden');
     }
-    function saveTodayWorkout() {
+    function saveDayWorkout() {
       const type = document.getElementById('workout-type').value;
       const kcal = parseInt(document.getElementById('workout-kcal').value) || 0;
       if (kcal > 0) {
-        state.todayWorkout = { type, kcal };
-        state.targetWater = Math.max(state.targetWater, 3500);
-        saveState();
+        ensureDateExists(currentDateStr);
+        historyData[currentDateStr].workout = { type, kcal };
+        saveHistory();
         closeWorkoutModal();
         document.getElementById('workout-kcal').value = '';
       }
     }
-    function clearTodayWorkout() {
-      state.todayWorkout = null;
-      saveState();
+    function clearDayWorkout() {
+      ensureDateExists(currentDateStr);
+      historyData[currentDateStr].workout = null;
+      saveHistory();
     }
 
-    function switchTab(tabId) {
-      ['hoy', 'plan', 'ajustes'].forEach(t => {
-        document.getElementById('tab-' + t).classList.add('hidden');
-        document.getElementById('nav-' + t).classList.replace('text-neutral-900', 'text-neutral-400');
-      });
-      document.getElementById('tab-' + tabId).classList.remove('hidden');
-      document.getElementById('nav-' + tabId).classList.replace('text-neutral-400', 'text-neutral-900');
-    }
-
+    // COMIDAS
     function openManualModal() {
       document.getElementById('modal-manual').classList.remove('hidden');
     }
     function closeManualModal() {
       document.getElementById('modal-manual').classList.add('hidden');
     }
-
     function addManualMeal() {
       const name = document.getElementById('manual-name').value || 'Alimento';
       const kcal = parseInt(document.getElementById('manual-kcal').value) || 0;
-      const protein = parseInt(document.getElementById('manual-protein').value) || 0;
+      const p = parseInt(document.getElementById('manual-p').value) || 0;
+      const c = parseInt(document.getElementById('manual-c').value) || 0;
 
       if (kcal > 0) {
-        state.meals.unshift({ name, kcal, p: protein, c: 0, g: 0 });
-        saveState();
+        ensureDateExists(currentDateStr);
+        historyData[currentDateStr].meals.unshift({ name, kcal, p, c, g: 0 });
+        saveHistory();
         closeManualModal();
         document.getElementById('manual-name').value = '';
         document.getElementById('manual-kcal').value = '';
-        document.getElementById('manual-protein').value = '';
+        document.getElementById('manual-p').value = '';
+        document.getElementById('manual-c').value = '';
       }
     }
-
     function deleteMeal(index) {
-      state.meals.splice(index, 1);
-      saveState();
+      ensureDateExists(currentDateStr);
+      historyData[currentDateStr].meals.splice(index, 1);
+      saveHistory();
     }
-
-    function resetDayData() {
-      if (confirm('¿Reiniciar las comidas y agua de hoy?')) {
-        state.meals = [];
-        state.consumedWater = 0;
-        state.todayWorkout = null;
-        saveState();
+    function clearCurrentDay() {
+      if (confirm('¿Borrar registros de esta fecha?')) {
+        historyData[currentDateStr] = { meals: [], water: 0, workout: null };
+        saveHistory();
       }
     }
 
-    let calculatedTarget = 1740;
-    let calculatedWater = 3250;
+    // NAVEGACIÓN
+    function switchTab(tabId) {
+      ['hoy', 'peso', 'plan', 'ajustes'].forEach(t => {
+        document.getElementById('tab-' + t).classList.add('hidden');
+        document.getElementById('nav-' + t).classList.replace('text-neutral-900', 'text-neutral-400');
+      });
+      document.getElementById('tab-' + tabId).classList.remove('hidden');
+      document.getElementById('nav-' + tabId).classList.replace('text-neutral-400', 'text-neutral-900');
 
-    function calculatePlan() {
-      const weight = parseFloat(document.getElementById('input-weight').value) || 93;
-      const height = parseFloat(document.getElementById('input-height').value) || 180;
-      const age = parseFloat(document.getElementById('input-age').value) || 27;
-      const gender = document.getElementById('input-gender').value;
-
-      let bmr = (10 * weight) + (6.25 * height) - (5 * age);
-      bmr = (gender === 'male') ? bmr + 5 : bmr - 161;
-
-      const baseDailyExpense = bmr * 1.25;
-      const bikeDays = parseFloat(document.getElementById('bike-days').value) || 0;
-      const bikeHours = parseFloat(document.getElementById('bike-hours').value) || 0;
-      const weeklyBikeKcal = bikeDays * (7.5 * weight * bikeHours);
-
-      const volleyDays = parseFloat(document.getElementById('volley-days').value) || 0;
-      const volleyHours = parseFloat(document.getElementById('volley-hours').value) || 0;
-      const weeklyVolleyKcal = volleyDays * (5.5 * weight * volleyHours);
-
-      const dailySportKcal = (weeklyBikeKcal + weeklyVolleyKcal) / 7;
-      const totalMaintenance = Math.round(baseDailyExpense + dailySportKcal);
-
-      const deficitSelected = parseInt(document.querySelector('input[name="deficit-level"]:checked').value);
-      calculatedTarget = totalMaintenance - deficitSelected;
-
-      calculatedWater = Math.round((weight * 35) + ((bikeDays * bikeHours + volleyDays * volleyHours) / 7 * 600));
-      const suggestedProtein = Math.round(weight * 2.0);
-
-      document.getElementById('res-target-kcal').textContent = calculatedTarget;
-      document.getElementById('res-maint-kcal').textContent = totalMaintenance;
-      document.getElementById('res-deficit-val').textContent = '-' + deficitSelected + ' kcal déficit';
-      document.getElementById('res-protein').textContent = suggestedProtein + 'g';
-      document.getElementById('res-water').textContent = calculatedWater + ' ml';
-
-      document.getElementById('calc-result-box').classList.remove('hidden');
-    }
-
-    function applyCalculatedPlan() {
-      state.targetKcal = calculatedTarget;
-      state.targetWater = calculatedWater;
-      saveState();
-      switchTab('hoy');
+      const calBar = document.getElementById('calendar-bar');
+      if (tabId === 'hoy') {
+        calBar.classList.remove('hidden');
+      } else {
+        calBar.classList.add('hidden');
+      }
+      lucide.createIcons();
     }
 
     function saveApiKey() {
       const key = document.getElementById('api-key-input').value.trim();
-      state.apiKey = key;
-      localStorage.setItem('revive_gemini_key', key);
-      alert('Clave guardada con éxito.');
+      config.apiKey = key || DEFAULT_API_KEY;
+      localStorage.setItem('revive_gemini_key', config.apiKey);
+      alert('Clave guardada.');
     }
 
-    function compressImage(file, maxWidth = 1024, quality = 0.75) {
+    function compressImage(file, maxWidth = 1000, quality = 0.7) {
       return new Promise((resolve, reject) => {
         const img = new Image();
         img.onload = () => {
@@ -676,8 +923,7 @@
           canvas.height = height;
           const ctx = canvas.getContext('2d');
           ctx.drawImage(img, 0, 0, width, height);
-          const dataUrl = canvas.toDataURL('image/jpeg', quality);
-          resolve(dataUrl.split(',')[1]);
+          resolve(canvas.toDataURL('image/jpeg', quality).split(',')[1]);
         };
         img.onerror = reject;
         img.src = URL.createObjectURL(file);
@@ -686,85 +932,77 @@
 
     async function handleImage(input) {
       if (!input.files || !input.files[0]) return;
-      if (!state.apiKey) {
-        alert('Por favor ingresa tu API Key en la pestaña de Ajustes para analizar fotos.');
-        switchTab('ajustes');
-        return;
-      }
-
       const file = input.files[0];
       document.getElementById('loading-overlay').classList.remove('hidden');
 
       try {
         const base64Data = await compressImage(file);
         
-        // Modelos ordenados por disponibilidad y estabilidad ante alta demanda
-        const models = [
-          'gemini-2.5-flash-lite',
-          'gemini-2.0-flash',
-          'gemini-2.5-pro',
-          'gemini-3.8-flash'
+        const modelEndpoints = [
+          'https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent',
+          'https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent',
+          'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent'
         ];
-        
-        let success = false;
-        let lastError = null;
 
-        for (const model of models) {
+        let resultData = null;
+        let lastErrorMsg = '';
+
+        for (const endpoint of modelEndpoints) {
           try {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(state.apiKey.trim())}`;
-            const response = await fetch(url, {
+            const res = await fetch(`${endpoint}?key=${encodeURIComponent(config.apiKey)}`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
                 contents: [{
+                  role: 'user',
                   parts: [
-                    { text: 'Eres un nutricionista experto. Analiza la imagen y estima los nutrientes del plato. Responde ÚNICAMENTE un objeto JSON válido sin texto adicional ni formato markdown con esta estructura exacta: {"name": "Nombre descriptivo corto", "kcal": 450, "protein": 30, "carbs": 40, "fat": 15}' },
-                    { inline_data: { mime_type: 'image/jpeg', data: base64Data } }
+                    { text: 'Identifica el alimento o lee la tabla nutricional de la imagen. Responde SOLO un objeto JSON con este formato exacto: {"name":"Nombre","kcal":100,"p":10,"c":15,"g":2}' },
+                    { inlineData: { mimeType: 'image/jpeg', data: base64Data } }
                   ]
-                }]
+                }],
+                generationConfig: {
+                  responseMimeType: 'application/json'
+                }
               })
             });
 
-            const data = await response.json();
-            if (data.error) {
-              lastError = new Error(data.error.message || 'Error en respuesta');
-              continue;
+            const data = await res.json();
+            if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+              resultData = JSON.parse(data.candidates[0].content.parts[0].text);
+              break;
+            } else if (data.error) {
+              lastErrorMsg = data.error.message;
             }
-
-            const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-            const cleanJson = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
-            const mealData = JSON.parse(cleanJson);
-
-            state.meals.unshift({
-              name: mealData.name || 'Comida escaneada',
-              kcal: parseInt(mealData.kcal) || 0,
-              p: parseInt(mealData.protein) || 0,
-              c: parseInt(mealData.carbs) || 0,
-              g: parseInt(mealData.fat) || 0
-            });
-
-            saveState();
-            success = true;
-            break;
           } catch (e) {
-            lastError = e;
+            lastErrorMsg = e.message;
           }
         }
 
-        if (!success) {
-          throw lastError || new Error('No se pudo procesar la imagen en este momento. Intenta de nuevo.');
+        if (!resultData) {
+          throw new Error(lastErrorMsg || 'No se pudo procesar la imagen.');
         }
 
+        ensureDateExists(currentDateStr);
+        historyData[currentDateStr].meals.unshift({
+          name: resultData.name || 'Alimento escaneado',
+          kcal: parseInt(resultData.kcal) || 0,
+          p: parseInt(resultData.p || resultData.protein) || 0,
+          c: parseInt(resultData.c || resultData.carbs) || 0,
+          g: parseInt(resultData.g || resultData.fat) || 0
+        });
+
+        saveHistory();
+
       } catch (err) {
-        alert('Detalle del error: ' + (err.message || 'Error al analizar foto.'));
-        console.error(err);
+        alert('Aviso: ' + err.message);
       } finally {
         document.getElementById('loading-overlay').classList.add('hidden');
         input.value = '';
       }
     }
 
-    loadState();
+    document.getElementById('api-key-input').value = config.apiKey;
+    updateUI();
   </script>
 </body>
 </html>
